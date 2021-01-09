@@ -31,7 +31,7 @@ public class ExcelInGamesMain extends Application {
    * @param args the args
    */
   public static void main(final String[] args) {
-    new SteamGames();
+    //new SteamGames();
     launch(args);
   }
 }
