@@ -1,7 +1,7 @@
 package de.funky.gameclients;
 
+import de.funky.backend.ExcelWorkbook;
 import java.io.BufferedReader;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -9,11 +9,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFFont;
+
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.JSONArray;
@@ -29,20 +25,18 @@ public class SteamGames {
    * The personalSteamWebAPIKey that every user has to create for themself.
    * The key can be created at "https://steamcommunity.com/dev/apikey".
    */
-  private String personalSteamWebApiKey = "";
+  private final String personalSteamWebApiKey = "";
 
+  //todo: connect to UI where user provides their own data
   /**
    * The personalSteamID that every user can check out on his profile.
    * It is usually located at the settings or can be found here
    * "https://steamidfinder.com/".
    */
-  private String personalSteamId = "";
+  private final String personalSteamId = "";
 
   /** Constant of value 60. */
   private static final int DIVISOR = 60;
-
-  /** Constant of value 15. */
-  private static final int FONTSIZE = 15;
 
   /**
    * Getter for personalSteamWebApiKey.
@@ -69,15 +63,6 @@ public class SteamGames {
    */
   public int getDivisor() {
     return DIVISOR;
-  }
-
-  /**
-   * Getter to retrieve the chosen fontsize.
-   *
-   * @return fontsize
-   */
-  public int getFontsize() {
-    return FONTSIZE;
   }
 
   /**
@@ -126,49 +111,17 @@ public class SteamGames {
       Arrays.sort(gamesAndTime, Collections.reverseOrder(
               Comparator.comparingInt(o -> Integer.parseInt(o[1]))));
 
-      //todo: connect to UI where user provides their own path
-      //todo: outsource the creation of the workbook and the sheets
-      // (no need to have it here). Create the content of the/
-      // workbook in the specific classes (to be coded) and
-      // bring the content into one class or the main for
-      // Workbook creation
-      XSSFWorkbook workbook = new XSSFWorkbook();
-      XSSFFont headerFont = workbook.createFont();
-      headerFont.setBold(true);
-      headerFont.setFontHeightInPoints((short) getFontsize());
-      headerFont.setFontName("Times New Roman");
-      headerFont.setUnderline((byte) 1);
-      XSSFCellStyle headerStyle = workbook.createCellStyle();
-      headerStyle.setAlignment(HorizontalAlignment.CENTER);
-      headerStyle.setFont(headerFont);
-
-      XSSFCellStyle columnStyle = workbook.createCellStyle();
-      columnStyle.setAlignment(HorizontalAlignment.CENTER);
-
-      XSSFSheet sheet = workbook.createSheet("Steam");
-      Row row = sheet.createRow(0);
-      Cell cell = row.createCell(0);
-      cell.setCellStyle(headerStyle);
-      Cell cell1 = row.createCell(1);
-      cell1.setCellStyle(headerStyle);
-      cell.setCellValue("Title of the Game");
-      cell1.setCellValue("Time you played");
-      int rowCount = 1;
-
-      for (int i = 0; i < allGames.length(); i++) {
-        row = sheet.createRow(rowCount++);
-        cell = row.createCell(0);
-        cell1 = row.createCell(1);
-        cell1.setCellStyle(columnStyle);
-        cell.setCellValue(gamesAndTime[i][0]);
-        cell1.setCellValue(Integer.parseInt(gamesAndTime[i][1]));
+      //todo: if there is no workbook existing, create one and pass that with the data
+      if(ExcelWorkbook.workbook == null){
+        ExcelWorkbook workbook = new ExcelWorkbook();
+        workbook.creationOfSteamSheet(allGames, gamesAndTime);
+      //todo: if there is a workbook just pass the data
       }
+//      else {
+//
+//      }
 
-      sheet.autoSizeColumn(0);
-      sheet.autoSizeColumn(1);
-      workbook.write(new FileOutputStream(
-              "C:/Users/Alex/Desktop/AllGamesAllPlatforms.xlsx"));
-      workbook.close();
+
     } catch (IOException e) {
       e.printStackTrace();
     }
