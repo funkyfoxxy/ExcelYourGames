@@ -13,3 +13,7 @@
     -fx-max-width: 20px;
     -fx-max-height: 20px;
 }
+
+#id_finder{
+    font-size: 30px;
+}

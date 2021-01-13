@@ -54,4 +54,8 @@ public class FxController implements Initializable {
 
   public void createWorkbook(ActionEvent actionEvent) {
   }
+
+  public void openBrowser(ActionEvent actionEvent) {
+    System.out.println("Wurstbrot");
+  }
 }
