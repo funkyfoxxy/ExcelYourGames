@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="178.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.funky.backend.FxController" stylesheets="@../cssstyling/mystyle.css">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="178.0" prefWidth="600.0" stylesheets="@../cssstyling/mystyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.funky.backend.FxController">
    <children>
       <HBox prefHeight="40.0" prefWidth="600.0">
          <children>
@@ -27,10 +26,10 @@
          </children>
       </HBox>
       <Button fx:id="create_xlsx" layoutX="424.0" layoutY="130.0" mnemonicParsing="false" onAction="#createWorkbook" text="Create .xlsx" />
-      <TextField fx:id="field_steamid" layoutX="100.0" layoutY="40.0" prefHeight="25.0" prefWidth="400.0" promptText="personal SteamID" />
-      <TextField fx:id="field_webapi" layoutX="100.0" layoutY="70.0" prefHeight="25.0" prefWidth="400.0" promptText="personal SteamWebAPIKey" />
-      <Button fx:id="information_steamid" layoutX="505.0" layoutY="40.0" mnemonicParsing="false" onAction="#openInfoSteam" text="i" />
-      <Button fx:id="information_webid" layoutX="505.0" layoutY="70.0" mnemonicParsing="false" onAction="#openInfoWeb" text="i" />
+      <TextField id="steamid_field" fx:id="field_steamid" layoutX="100.0" layoutY="40.0" prefHeight="25.0" prefWidth="400.0" promptText="personal SteamID" />
+      <TextField id="webapi_field" fx:id="field_webapi" layoutX="100.0" layoutY="70.0" prefHeight="25.0" prefWidth="400.0" promptText="personal SteamWebAPIKey" />
+      <Button id="info_steamid" fx:id="information_steamid" layoutX="505.0" layoutY="40.0" mnemonicParsing="false" onAction="#openInfo" text="i" />
+      <Button id="info_webapi" fx:id="information_webid" layoutX="505.0" layoutY="70.0" mnemonicParsing="false" onAction="#openInfo" text="i" />
       <TextField fx:id="field_file_path" layoutX="100.0" layoutY="100.0" prefHeight="25.0" prefWidth="400.0" promptText="file path" />
    </children>
 </Pane>

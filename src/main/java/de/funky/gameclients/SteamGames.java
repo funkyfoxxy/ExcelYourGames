@@ -10,8 +10,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -25,7 +23,7 @@ public class SteamGames {
    * The personalSteamWebAPIKey that every user has to create for themself.
    * The key can be created at "https://steamcommunity.com/dev/apikey".
    */
-  private final String personalSteamWebApiKey = "";
+  private String personalSteamWebApiKey = "";
 
   //todo: connect to UI where user provides their own data
   /**
@@ -33,10 +31,18 @@ public class SteamGames {
    * It is usually located at the settings or can be found here
    * "https://steamidfinder.com/".
    */
-  private final String personalSteamId = "";
+  private String personalSteamId = "";
 
   /** Constant of value 60. */
   private static final int DIVISOR = 60;
+
+  public void setPersonalSteamWebApiKey(String webKey) {
+    this.personalSteamWebApiKey = webKey;
+  }
+
+  public void setPersonalSteamId(String personalId) {
+    this.personalSteamId = personalId;
+  }
 
   /**
    * Getter for personalSteamWebApiKey.
@@ -65,19 +71,15 @@ public class SteamGames {
     return DIVISOR;
   }
 
-  /**
-   * Using the public Steam-API to call for every owned game. Setting styles
-   * and fonts for the XSSFWorkbook in particular for the XSSFCells. The
-   * created list is sorted by the most played games on top and the least
-   * on the bottom.
-   */
-  public SteamGames() {
+  public void requestSteamGames(String newSteamId, String steamWebApi) {
+    personalSteamId = newSteamId;
+    personalSteamWebApiKey = steamWebApi;
     try {
       URL url = new URL("http://api.steampowered.com/"
               + "IPlayerService/GetOwnedGames/v0001/?key="
-              + getPersonalSteamWebApiKey()
+              + steamWebApi
               + "&steamid="
-              + getPersonalSteamId()
+              + newSteamId
               + "&include_appinfo=1");
       HttpURLConnection con = (HttpURLConnection) url.openConnection();
       con.setRequestMethod("GET");
@@ -94,8 +96,8 @@ public class SteamGames {
       in.close();
       con.disconnect();
 
-      JSONObject json = new JSONObject(response.toString());
-      JSONArray allGames = json.getJSONObject("response")
+      JSONObject jsonFile = new JSONObject(response.toString());
+      JSONArray allGames = jsonFile.getJSONObject("response")
               .getJSONArray("games");
 
       String[][] gamesAndTime = new String[allGames.length()][2];
@@ -115,12 +117,8 @@ public class SteamGames {
       if(ExcelWorkbook.workbook == null){
         ExcelWorkbook workbook = new ExcelWorkbook();
         workbook.creationOfSteamSheet(allGames, gamesAndTime);
-      //todo: if there is a workbook just pass the data
+        //todo: if there is a workbook just pass the data
       }
-//      else {
-//
-//      }
-
 
     } catch (IOException e) {
       e.printStackTrace();
