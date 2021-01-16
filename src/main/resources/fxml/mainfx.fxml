@@ -25,11 +25,11 @@
             </Label>
          </children>
       </HBox>
-      <Button fx:id="create_xlsx" layoutX="424.0" layoutY="130.0" mnemonicParsing="false" onAction="#createWorkbook" text="Create .xlsx" />
-      <TextField id="steamid_field" fx:id="field_steamid" layoutX="100.0" layoutY="40.0" prefHeight="25.0" prefWidth="400.0" promptText="personal SteamID" />
-      <TextField id="webapi_field" fx:id="field_webapi" layoutX="100.0" layoutY="70.0" prefHeight="25.0" prefWidth="400.0" promptText="personal SteamWebAPIKey" />
-      <Button id="info_steamid" fx:id="information_steamid" layoutX="505.0" layoutY="40.0" mnemonicParsing="false" onAction="#openInfo" text="i" />
-      <Button id="info_webapi" fx:id="information_webid" layoutX="505.0" layoutY="70.0" mnemonicParsing="false" onAction="#openInfo" text="i" />
+      <Button id="missingdata" fx:id="create_xlsx" layoutX="424.0" layoutY="130.0" mnemonicParsing="false" onAction="#createWorkbook" text="Create .xlsx" />
+      <TextField id="steamid_field" fx:id="fieldSteamId" layoutX="100.0" layoutY="40.0" prefHeight="25.0" prefWidth="400.0" promptText="personal SteamID" />
+      <TextField id="webapi_field" fx:id="fieldWebApi" layoutX="100.0" layoutY="70.0" prefHeight="25.0" prefWidth="400.0" promptText="personal SteamWebAPIKey" />
+      <Button id="steamidinfo" fx:id="information_steamid" layoutX="505.0" layoutY="40.0" mnemonicParsing="false" onAction="#openInfo" text="i" />
+      <Button id="steamwebapi" fx:id="information_webid" layoutX="505.0" layoutY="70.0" mnemonicParsing="false" onAction="#openInfo" text="i" />
       <TextField fx:id="field_file_path" layoutX="100.0" layoutY="100.0" prefHeight="25.0" prefWidth="400.0" promptText="file path" />
    </children>
 </Pane>
