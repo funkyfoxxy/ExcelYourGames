@@ -23,9 +23,10 @@ public class ExcelInGamesMain extends Application {
   public void start(Stage stage) throws Exception {
     Parent root = FXMLLoader.load(Objects.requireNonNull(
             getClass().getClassLoader().getResource("fxml/mainfx.fxml")));
-    root.setStyle("-fx-background-color: dimgray;");
+    root.setStyle("-fx-background-color: white");
     stage.setTitle("Excel All Games");
     stage.setScene(new Scene(root));
+    System.out.println("MainCreation");
     stage.show();
   }
 
