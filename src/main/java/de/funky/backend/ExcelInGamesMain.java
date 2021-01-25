@@ -13,6 +13,16 @@ import java.util.Objects;
  */
 public class ExcelInGamesMain extends Application {
 
+  private static Stage stage;
+
+  public static Stage getStage() {
+    return stage;
+  }
+
+  public static void setStage(Stage stage) {
+    ExcelInGamesMain.stage = stage;
+  }
+
   /**
    * Start of the GUI for user input and output.
    *
@@ -27,6 +37,7 @@ public class ExcelInGamesMain extends Application {
     stage.setTitle("Excel All Games");
     stage.setScene(new Scene(root));
     System.out.println("MainCreation");
+    setStage(stage);
     stage.show();
   }
 

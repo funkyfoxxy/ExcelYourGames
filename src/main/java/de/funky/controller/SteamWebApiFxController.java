@@ -1,7 +1,11 @@
-package de.funky.backend;
+package de.funky.controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.awt.*;
 import java.io.IOException;
@@ -11,6 +15,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SteamWebApiFxController implements Initializable {
+
+    @FXML
+    public VBox steamwebapipane;
+    @FXML
+    public Label steamwebapilabel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -26,4 +35,8 @@ public class SteamWebApiFxController implements Initializable {
         }
     }
 
+    public void setMatchingColors(String bg, String t) {
+        steamwebapipane.styleProperty().set(bg);
+        steamwebapilabel.setTextFill(Color.web(t));
+    }
 }

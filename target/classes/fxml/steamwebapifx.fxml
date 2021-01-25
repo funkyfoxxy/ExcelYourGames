@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.funky.backend.SteamWebApiFxController">
+<VBox fx:id="steamwebapipane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.funky.controller.SteamWebApiFxController">
     <children>
-      <Label text="Your personal SteamWebAPIKey can be&#10;found or created here:" textAlignment="CENTER" />
+      <Label fx:id="steamwebapilabel" text="Your personal SteamWebAPIKey can be&#10;found or created here:" textAlignment="CENTER" />
       <Hyperlink id="webapikey_finder" text="https://steamcommunity.com/dev/apikey" onAction="#openBrowser"/>
     </children>
 </VBox>

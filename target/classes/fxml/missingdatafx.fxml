@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="103.0" prefWidth="348.0" stylesheets="@../cssstyling/mystyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.funky.backend.MissingDataFxController">
+<Pane fx:id="missingdatapane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="103.0" prefWidth="348.0" stylesheets="@../cssstyling/mystyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.funky.controller.MissingDataFxController">
    <children>
-      <Label layoutX="15.0" layoutY="25.0" text="Either your input is wrong or missing.&#10;Please solve the problem." textAlignment="CENTER">
+      <Label fx:id="missingdatalabel" layoutX="15.0" layoutY="25.0" text="Either your input is wrong or missing.&#10;Please solve the problem." textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
