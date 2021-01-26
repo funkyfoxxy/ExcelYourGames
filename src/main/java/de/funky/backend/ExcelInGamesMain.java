@@ -6,12 +6,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 /**
  * main class for the whole project.
  */
 public class ExcelInGamesMain extends Application {
+
+  Locale locale = Locale.getDefault();
+  String language = locale.getLanguage();
+  String country = locale.getCountry();
+  Locale l = new Locale(language,country);
+  ResourceBundle r = ResourceBundle.getBundle("MessageBundle", l);
 
   private static Stage stage;
 
@@ -22,6 +30,8 @@ public class ExcelInGamesMain extends Application {
   public static void setStage(Stage stage) {
     ExcelInGamesMain.stage = stage;
   }
+
+
 
   /**
    * Start of the GUI for user input and output.
@@ -34,9 +44,8 @@ public class ExcelInGamesMain extends Application {
     Parent root = FXMLLoader.load(Objects.requireNonNull(
             getClass().getClassLoader().getResource("fxml/mainfx.fxml")));
     root.setStyle("-fx-background-color: white");
-    stage.setTitle("Excel All Games");
+    stage.setTitle(r.getString("title"));
     stage.setScene(new Scene(root));
-    System.out.println("MainCreation");
     setStage(stage);
     stage.show();
   }

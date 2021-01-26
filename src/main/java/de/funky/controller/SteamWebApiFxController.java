@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class SteamWebApiFxController implements Initializable {
@@ -21,9 +22,15 @@ public class SteamWebApiFxController implements Initializable {
     @FXML
     public Label steamwebapilabel;
 
+    Locale locale = Locale.getDefault();
+    String language = locale.getLanguage();
+    String country = locale.getCountry();
+    Locale l = new Locale(language,country);
+    ResourceBundle r = ResourceBundle.getBundle("MessageBundle", l);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("And now I am here!");
+        steamwebapilabel.setText(r.getString("steamWebInfoLabel"));
     }
 
     public void openBrowser(ActionEvent actionEvent) {

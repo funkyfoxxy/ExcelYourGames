@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class SteamIdInfoFxController implements Initializable {
@@ -21,9 +22,15 @@ public class SteamIdInfoFxController implements Initializable {
     @FXML
     public Label steamidinfolabel;
 
+    Locale locale = Locale.getDefault();
+    String language = locale.getLanguage();
+    String country = locale.getCountry();
+    Locale l = new Locale(language,country);
+    ResourceBundle r = ResourceBundle.getBundle("MessageBundle", l);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Now I am here! Just for testing purpose!");
+        steamidinfolabel.setText(r.getString("steamIdInfoLabel"));
     }
 
     public void openBrowser(ActionEvent actionEvent) {
@@ -38,8 +45,5 @@ public class SteamIdInfoFxController implements Initializable {
     public void setMatchingColors(String bg, String t){
         steamidinfopane.styleProperty().set(bg);
         steamidinfolabel.setTextFill(Color.web(t));
-        System.out.println("Background is now black");
     }
-
-
 }

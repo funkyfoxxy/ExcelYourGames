@@ -9,19 +9,19 @@
    <children>
       <HBox prefHeight="40.0" prefWidth="600.0">
          <children>
-            <Label fx:id="headerLabel" alignment="CENTER" prefHeight="40.0" prefWidth="600.0" text="Get all your games from Steam as an Excel-File" textAlignment="CENTER">
+            <Label fx:id="headerLabel" alignment="CENTER" prefHeight="40.0" prefWidth="600.0" textAlignment="CENTER">
                <font>
                   <Font name="Arial Bold" size="17.0" />
                </font>
             </Label>
          </children>
       </HBox>
-      <Button id="missingdatafx" fx:id="create_xlsx" layoutX="424.0" layoutY="130.0" mnemonicParsing="false" onAction="#createWorkbook" text="Create .xlsx" />
-      <TextField id="steamid_field" fx:id="fieldSteamId" layoutX="100.0" layoutY="40.0" prefHeight="25.0" prefWidth="400.0" promptText="personal SteamID" />
-      <TextField id="webapi_field" fx:id="fieldWebApi" layoutX="100.0" layoutY="70.0" prefHeight="25.0" prefWidth="400.0" promptText="personal SteamWebAPIKey" />
-      <Button id="steamidinfofx" fx:id="information_steamid" layoutX="505.0" layoutY="40.0" mnemonicParsing="false" onAction="#openInfo" text="i" />
-      <Button id="steamwebapifx" fx:id="information_webid" layoutX="505.0" layoutY="70.0" mnemonicParsing="false" onAction="#openInfo" text="i" />
-      <TextField fx:id="field_file_path" layoutX="100.0" layoutY="100.0" prefHeight="25.0" prefWidth="400.0" promptText="file path" />
+      <Button id="missingdatafx" fx:id="create_xlsx" layoutX="424.0" layoutY="130.0" mnemonicParsing="false" onAction="#createWorkbook" />
+      <TextField id="steamid_field" fx:id="fieldSteamId" layoutX="100.0" layoutY="40.0" prefHeight="25.0" prefWidth="400.0" />
+      <TextField id="webapi_field" fx:id="fieldWebApi" layoutX="100.0" layoutY="70.0" prefHeight="25.0" prefWidth="400.0" />
+      <Button id="steamidinfofx" fx:id="information_steamid" layoutX="505.0" layoutY="40.0" mnemonicParsing="false" onAction="#openInfo" />
+      <Button id="steamwebapifx" fx:id="information_webid" layoutX="505.0" layoutY="70.0" mnemonicParsing="false" onAction="#openInfo" />
+      <TextField fx:id="field_file_path" layoutX="100.0" layoutY="100.0" prefHeight="25.0" prefWidth="400.0" />
       <HBox layoutY="164.0" prefHeight="30.0" prefWidth="600.0">
          <children>
             <Region prefHeight="30.0" prefWidth="5.0" />
@@ -34,6 +34,6 @@
                </HBox.margin></Label>
          </children>
       </HBox>
-      <Button fx:id="buttonsavepath" layoutX="505.0" layoutY="100.0" mnemonicParsing="false" text="Save path" onAction="#openDirectory"/>
+      <Button fx:id="buttonsavepath" layoutX="505.0" layoutY="100.0" mnemonicParsing="false" onAction="#openDirectory"/>
    </children>
 </Pane>
