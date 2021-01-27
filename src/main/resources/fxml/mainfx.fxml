@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane fx:id="mainpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="193.0" prefWidth="600.0" stylesheets="@../cssstyling/mystyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.funky.controller.MainFxController">
+<Pane fx:id="mainpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="193.0" prefWidth="600.0" stylesheets="@../cssstyling/mainstyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.funky.controller.MainFxController">
    <HBox prefHeight="40.0" prefWidth="600.0">
       <Label fx:id="headerLabel" alignment="CENTER" prefHeight="40.0" prefWidth="600.0" textAlignment="CENTER">
          <font>

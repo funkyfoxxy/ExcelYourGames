@@ -2,6 +2,7 @@ package de.funky.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -20,6 +21,8 @@ public class SteamWebApiFxController implements Initializable {
     public VBox steamwebapipane;
     @FXML
     public Label steamwebapilabel;
+    @FXML
+    public Hyperlink webapikeyfinderlink;
 
     Locale locale = Locale.getDefault();
     String language = locale.getLanguage();
@@ -30,6 +33,7 @@ public class SteamWebApiFxController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         steamwebapilabel.setText(r.getString("steamWebInfoLabel"));
+        webapikeyfinderlink.setText(r.getString("webapikeyfinderlink"));
     }
 
     public void openBrowser() {

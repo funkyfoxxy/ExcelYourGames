@@ -2,6 +2,7 @@ package de.funky.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -20,6 +21,8 @@ public class SteamIdInfoFxController implements Initializable {
     public VBox steamidinfopane;
     @FXML
     public Label steamidinfolabel;
+    @FXML
+    public Hyperlink idfinderlink;
 
     Locale locale = Locale.getDefault();
     String language = locale.getLanguage();
@@ -30,6 +33,7 @@ public class SteamIdInfoFxController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         steamidinfolabel.setText(r.getString("steamIdInfoLabel"));
+        idfinderlink.setText(r.getString("idfinderlink"));
     }
 
     public void openBrowser() {

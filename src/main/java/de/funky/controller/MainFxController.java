@@ -94,28 +94,15 @@ public class MainFxController implements Initializable {
      */
     @Override
     public void initialize(final URL url, final ResourceBundle resourceBundle) {
-        Image infoImageSteamId = new Image(getClass().getResourceAsStream("/images/info_black.png"));
-        ImageView infoSteamIdImageView = new ImageView(infoImageSteamId);
-        infoSteamIdImageView.setFitWidth(16);
-        infoSteamIdImageView.setFitHeight(16);
-        information_steamid.setGraphic(infoSteamIdImageView);
-        Image infoImageWebId = new Image(getClass().getResourceAsStream("/images/info_black.png"));
-        ImageView infoWebIdImageView = new ImageView(infoImageWebId);
-        infoWebIdImageView.setFitWidth(16);
-        infoWebIdImageView.setFitHeight(16);
-        information_webid.setGraphic(infoWebIdImageView);
-        Image image = new Image(getClass().getResourceAsStream("/images/folder_black.png"));
-        ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(16);
-        imageView.setFitHeight(16);
-        buttonsavepath.setGraphic(imageView);
+        setButtonImages(Colors.values()[0].name());
+
         create_xlsx.setText(r.getString("create"));
+        headerLabel.setText(r.getString("header"));
 
         fieldSteamId.setPromptText(r.getString("fieldInfoId"));
         fieldWebApi.setPromptText(r.getString("fieldInfoApi"));
         field_file_path.setPromptText(r.getString("pathInfo"));
 
-        headerLabel.setText(r.getString("header"));
         check_dark.setItems(variousModes);
         check_dark.setValue(r.getString("defaultColor"));
 
@@ -127,12 +114,14 @@ public class MainFxController implements Initializable {
                         mainpane.styleProperty().set("-fx-background-color: " + Colors.values()[0].name());
                         headerLabel.setTextFill(Color.web(Colors.values()[1].name()));
                         creator.setTextFill(Color.web(Colors.values()[1].name()));
+                        setButtonImages(Colors.values()[1].name());
                     } else if (t1.equals(1)) {
                         usedBgColorFromEnum = 1;
                         usedTColorFromEnum = 0;
                         mainpane.styleProperty().set("-fx-background-color: " + Colors.values()[1].name());
                         headerLabel.setTextFill(Color.web(Colors.values()[0].name()));
                         creator.setTextFill(Color.web(Colors.values()[0].name()));
+                        setButtonImages(Colors.values()[0].name());
                     } else if (t1.equals(2)) {
                         Random random = new Random();
                         int randomNumber = random.nextInt(10);
@@ -145,8 +134,27 @@ public class MainFxController implements Initializable {
                         usedTColorFromEnum = secondRandomNumber;
                         headerLabel.setTextFill(Color.web(Colors.values()[secondRandomNumber].name()));
                         creator.setTextFill(Color.web(Colors.values()[secondRandomNumber].name()));
+                        setButtonImages(Colors.values()[0].name());
                     }
                 });
+    }
+
+    private void setButtonImages(String name) {
+        Image infoImageSteamId = new Image(getClass().getResourceAsStream("/images/info_" + name + ".png"));
+        ImageView infoSteamIdImageView = new ImageView(infoImageSteamId);
+        infoSteamIdImageView.setFitWidth(16);
+        infoSteamIdImageView.setFitHeight(16);
+        information_steamid.setGraphic(infoSteamIdImageView);
+        Image infoImageWebId = new Image(getClass().getResourceAsStream("/images/info_" + name + ".png"));
+        ImageView infoWebIdImageView = new ImageView(infoImageWebId);
+        infoWebIdImageView.setFitWidth(16);
+        infoWebIdImageView.setFitHeight(16);
+        information_webid.setGraphic(infoWebIdImageView);
+        Image image = new Image(getClass().getResourceAsStream("/images/folder_black.png"));
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(16);
+        imageView.setFitHeight(16);
+        buttonsavepath.setGraphic(imageView);
     }
 
     /**
@@ -161,11 +169,8 @@ public class MainFxController implements Initializable {
             String calledId = ((Control) actionEvent.getSource()).getId();
             Stage stage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader();
-            if(calledId.equals("steamidinfofx") || calledId.equals("steamwebapifx") || (calledId.equals("createdatafx"))){
-                fxmlLoader.setLocation(getClass()
-                        .getClassLoader()
-                        .getResource("fxml/" + calledId + ".fxml"));
-            }
+            fxmlLoader.setLocation(getClass().getClassLoader()
+                    .getResource("fxml/" + calledId + ".fxml"));
 
             Parent root = fxmlLoader.load();
 
@@ -203,14 +208,10 @@ public class MainFxController implements Initializable {
 
     public void openDirectory() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        File defaultDirectory = new File("C:");
-        directoryChooser.setInitialDirectory(defaultDirectory);
-        buttonsavepath.setOnAction(e -> {
-            File selectedDirectory = directoryChooser.showDialog(ExcelInGamesMain.getStage());
-            if(selectedDirectory != null){
-                field_file_path.setText(selectedDirectory.getAbsolutePath());
-            }
-        });
+        File selectedDirectory = directoryChooser.showDialog(ExcelInGamesMain.getStage());
+        if(selectedDirectory != null){
+            field_file_path.setText(selectedDirectory.getAbsolutePath());
+        }
     }
 
     /**
