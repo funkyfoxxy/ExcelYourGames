@@ -56,8 +56,9 @@ public class MainFxController implements Initializable {
 
     public int usedBgColorFromEnum = 1;
     public int usedTColorFromEnum = 0;
-    public String steamId;
-    public String webApi;
+    public static String steamId;
+    public static String webApi;
+    public static String filePath;
 
     /**
      * Connects the textfield of the personal
@@ -144,14 +145,10 @@ public class MainFxController implements Initializable {
             String calledId = ((Control) actionEvent.getSource()).getId();
             Stage stage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader();
-            if(calledId.equals("steamidinfofx") || calledId.equals("steamwebapifx") || (calledId.equals("missingdatafx"))){
+            if(calledId.equals("steamidinfofx") || calledId.equals("steamwebapifx") || (calledId.equals("createdatafx"))){
                 fxmlLoader.setLocation(getClass()
                         .getClassLoader()
                         .getResource("fxml/" + calledId + ".fxml"));
-            } else {
-                fxmlLoader.setLocation(getClass()
-                        .getClassLoader()
-                        .getResource("fxml/successmessage.fxml"));
             }
 
             Parent root = fxmlLoader.load();
@@ -165,14 +162,8 @@ public class MainFxController implements Initializable {
                     SteamWebApiFxController steamWebApiFxController = fxmlLoader.getController();
                     steamWebApiFxController.setMatchingColors("-fx-background-color: " + Colors.values()[usedBgColorFromEnum].name(), Colors.values()[usedTColorFromEnum].name());
                     break;
-                case "missingdatafx":
-                    if (steamId.length() != STEAMIDLENGTH || webApi.isEmpty() || field_file_path.getText().isEmpty()) {
-                        MissingDataFxController missingDataFxController = fxmlLoader.getController();
-                        missingDataFxController.setMatchingColors("-fx-background-color: " + Colors.values()[usedBgColorFromEnum].name(), Colors.values()[usedTColorFromEnum].name());
-                        break;
-                    }
-                default:
-                    SuccessMessageFxController successMessageFxController = fxmlLoader.getController();
+                case "createdatafx":
+                    CreateDataFxController successMessageFxController = fxmlLoader.getController();
                     successMessageFxController.setMatchingColors("-fx-background-color: " + Colors.values()[usedBgColorFromEnum].name(), Colors.values()[usedTColorFromEnum].name());
             }
 
@@ -217,8 +208,8 @@ public class MainFxController implements Initializable {
     public void createWorkbook(final ActionEvent actionEvent) {
         steamId = fieldSteamId.getText();
         webApi = fieldWebApi.getText();
-        String filePath = field_file_path.getText();
-        if (steamId.length() == STEAMIDLENGTH && !webApi.isEmpty()) {
+        filePath = field_file_path.getText();
+        if (steamId.length() == STEAMIDLENGTH && !webApi.isEmpty() && !filePath.isEmpty()) {
             SteamGames steamGames = new SteamGames();
             steamGames.createSteamGamesExcel(steamId, webApi, filePath);
             fieldSteamId.setText("");

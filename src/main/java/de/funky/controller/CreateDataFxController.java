@@ -10,12 +10,12 @@ import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class SuccessMessageFxController implements Initializable {
+public class CreateDataFxController implements Initializable {
 
     @FXML
-    public Pane successpane;
+    public Pane createdatapane;
     @FXML
-    public Label successlabel;
+    public Label createdatalabel;
 
     Locale locale = Locale.getDefault();
     String language = locale.getLanguage();
@@ -25,11 +25,15 @@ public class SuccessMessageFxController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        successlabel.setText(r.getString("success"));
+        if(MainFxController.steamId.length() == 17 && MainFxController.webApi.length() != 0 && MainFxController.filePath.length() != 0){
+            createdatalabel.setText(r.getString("success"));
+        } else {
+            createdatalabel.setText(r.getString("error"));
+        }
     }
 
     public void setMatchingColors(String bg, String t) {
-        successpane.styleProperty().set(bg);
-        successlabel.setTextFill(Color.web(t));
+        createdatapane.styleProperty().set(bg);
+        createdatalabel.setTextFill(Color.web(t));
     }
 }

@@ -16,7 +16,7 @@
             </Label>
          </children>
       </HBox>
-      <Button id="missingdatafx" fx:id="create_xlsx" layoutX="424.0" layoutY="130.0" mnemonicParsing="false" onAction="#createWorkbook" />
+      <Button id="createdatafx" fx:id="create_xlsx" layoutX="424.0" layoutY="130.0" mnemonicParsing="false" onAction="#createWorkbook" />
       <TextField id="steamid_field" fx:id="fieldSteamId" layoutX="100.0" layoutY="40.0" prefHeight="25.0" prefWidth="400.0" />
       <TextField id="webapi_field" fx:id="fieldWebApi" layoutX="100.0" layoutY="70.0" prefHeight="25.0" prefWidth="400.0" />
       <Button id="steamidinfofx" fx:id="information_steamid" layoutX="505.0" layoutY="40.0" mnemonicParsing="false" onAction="#openInfo" />
