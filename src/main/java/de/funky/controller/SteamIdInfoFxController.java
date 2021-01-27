@@ -33,7 +33,7 @@ public class SteamIdInfoFxController implements Initializable {
         steamidinfolabel.setText(r.getString("steamIdInfoLabel"));
     }
 
-    public void openBrowser(ActionEvent actionEvent) {
+    public void openBrowser() {
         try {
             Desktop.getDesktop()
                     .browse(new URI("https://steamidfinder.com/"));

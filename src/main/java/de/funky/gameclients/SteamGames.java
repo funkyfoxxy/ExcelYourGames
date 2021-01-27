@@ -111,11 +111,12 @@ public class SteamGames {
    */
   public void createSteamGamesExcel(final String steamId,
                                     final String steamWebApi,
-                                    final String filePath)
-          throws IOException {
-    requestSteamGames(steamId, steamWebApi);
-    createSortedArrayOfSteamGames();
-    writeSteamGamesInWorkbook(filePath);
+                                    final String filePath) {
+    int returnedCode = requestSteamGames(steamId, steamWebApi);
+    if(returnedCode == 200){
+      createSortedArrayOfSteamGames();
+      writeSteamGamesInWorkbook(filePath);
+    }
   }
 
   /**
@@ -126,7 +127,7 @@ public class SteamGames {
    * @param steamId given steamId from user
    * @param steamWebApi given steamWebApi from user
    */
-  public void requestSteamGames(final String steamId,
+  public int requestSteamGames(final String steamId,
                                 final String steamWebApi) {
     try {
       URL url = new URL("http://api.steampowered.com/"
@@ -147,13 +148,19 @@ public class SteamGames {
         response.append(inputLine);
       }
 
+      int code = con.getResponseCode();
+
+      System.out.println("ResponseCode: " + code);
+
       in.close();
       con.disconnect();
 
       setJsonFile(new JSONObject(response.toString()));
+      return code;
     } catch (IOException e) {
       e.printStackTrace();
     }
+    return 0;
   }
 
   /**
@@ -162,23 +169,27 @@ public class SteamGames {
    * way with every game and its corresponding play time.
    */
   public void createSortedArrayOfSteamGames() {
-    setAllGames(getJsonFile().getJSONObject("response")
-            .getJSONArray("games"));
+    if(getJsonFile() != null){
+      setAllGames(getJsonFile().getJSONObject("response")
+              .getJSONArray("games"));
 
-    String[][] gamesAndTime = new String[allGames.length()][2];
+      String[][] gamesAndTime = new String[allGames.length()][2];
 
-    for (int i = 0; i < allGames.length(); i++) {
-      String gameName = allGames.getJSONObject(i).getString("name");
-      String gameTime = String.valueOf((allGames.getJSONObject(i)
-              .getInt("playtime_forever") / getDivisor()));
-      gamesAndTime[i][0] = gameName;
-      gamesAndTime[i][1] = gameTime;
+      for (int i = 0; i < allGames.length(); i++) {
+        String gameName = allGames.getJSONObject(i).getString("name");
+        String gameTime = String.valueOf((allGames.getJSONObject(i)
+                .getInt("playtime_forever") / getDivisor()));
+        gamesAndTime[i][0] = gameName;
+        gamesAndTime[i][1] = gameTime;
+      }
+
+      Arrays.sort(gamesAndTime, Collections.reverseOrder(
+              Comparator.comparingInt(o -> Integer.parseInt(o[1]))));
+
+      setAllGamesAndTimes(gamesAndTime);
+    } else {
+      System.out.println("Lappen");
     }
-
-    Arrays.sort(gamesAndTime, Collections.reverseOrder(
-            Comparator.comparingInt(o -> Integer.parseInt(o[1]))));
-
-    setAllGamesAndTimes(gamesAndTime);
   }
 
   /**
@@ -188,7 +199,7 @@ public class SteamGames {
    *
    * @throws IOException workbook is using FileOutputStream()
    */
-  public void writeSteamGamesInWorkbook(String filePath) throws IOException {
+  public void writeSteamGamesInWorkbook(String filePath) {
     //todo: if there is no workbook existing, create one
     // and pass that with the data
     if (ExcelWorkbook.workbook == null) {

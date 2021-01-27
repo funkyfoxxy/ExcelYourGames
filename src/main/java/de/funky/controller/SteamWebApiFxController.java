@@ -33,7 +33,7 @@ public class SteamWebApiFxController implements Initializable {
         steamwebapilabel.setText(r.getString("steamWebInfoLabel"));
     }
 
-    public void openBrowser(ActionEvent actionEvent) {
+    public void openBrowser() {
         try {
             Desktop.getDesktop()
                     .browse(new URI("https://steamidfinder.com/"));

@@ -17,8 +17,9 @@ public class MissingDataFxController implements Initializable {
     @FXML
     public Label missingdatalabel;
 
-    String language = "de";
-    String country = "DE";
+    Locale locale = Locale.getDefault();
+    String language = locale.getLanguage();
+    String country = locale.getCountry();
     Locale l = new Locale(language,country);
     ResourceBundle r = ResourceBundle.getBundle("MessageBundle", l);
 

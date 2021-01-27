@@ -37,17 +37,21 @@ public class ExcelInGamesMain extends Application {
    * Start of the GUI for user input and output.
    *
    * @param stage the final stage
-   * @throws Exception if the loading failed
    */
   @Override
-  public void start(Stage stage) throws Exception {
-    Parent root = FXMLLoader.load(Objects.requireNonNull(
-            getClass().getClassLoader().getResource("fxml/mainfx.fxml")));
-    root.setStyle("-fx-background-color: white");
-    stage.setTitle(r.getString("title"));
-    stage.setScene(new Scene(root));
-    setStage(stage);
-    stage.show();
+  public void start(Stage stage) {
+    try{
+      Parent root = FXMLLoader.load(Objects.requireNonNull(
+              getClass().getClassLoader().getResource("fxml/mainfx.fxml")));
+      root.setStyle("-fx-background-color: white");
+      stage.setTitle(r.getString("title"));
+      stage.setScene(new Scene(root));
+      setStage(stage);
+      stage.show();
+    } catch (Exception e){
+      e.printStackTrace();
+    }
+
   }
 
   /**

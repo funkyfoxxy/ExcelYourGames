@@ -1,6 +1,5 @@
 package de.funky.backend;
 
-import de.funky.controller.SuccessMessageFxController;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
@@ -29,7 +28,6 @@ public class ExcelWorkbook {
     }
 
     private String filePath;
-
 
     public ExcelWorkbook() {
     }
@@ -68,7 +66,7 @@ public class ExcelWorkbook {
         columnStyle.setAlignment(HorizontalAlignment.CENTER);
     }
 
-    public void creationOfSteamSheet(JSONArray allGames, String[][] gamesAndTime, String filePath) throws IOException {
+    public void creationOfSteamSheet(JSONArray allGames, String[][] gamesAndTime, String filePath) {
         setFilePath(filePath);
         if(workbook == null){
             creationOfWorkbook();
@@ -98,8 +96,12 @@ public class ExcelWorkbook {
     }
 
     //todo: connect to UI where user provides their own file path
-    public void writingOfWorkbook() throws IOException {
-        workbook.write(new FileOutputStream(getFilePath() + "/AllGamesPlatforms.xlsx"));
-        workbook.close();
+    public void writingOfWorkbook() {
+        try{
+            workbook.write(new FileOutputStream(getFilePath() + "/AllGamesPlatforms.xlsx"));
+            workbook.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }

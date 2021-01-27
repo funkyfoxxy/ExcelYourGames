@@ -47,6 +47,8 @@ public class MainFxController implements Initializable {
     public Button information_steamid;
     @FXML
     public Button information_webid;
+    @FXML
+    public Label creator;
 
     public enum Colors{
         black, white, green, yellow, blue, orange, red, pink, purple, grey
@@ -107,11 +109,13 @@ public class MainFxController implements Initializable {
                         usedTColorFromEnum = 1;
                         mainpane.styleProperty().set("-fx-background-color: " + Colors.values()[0].name());
                         headerLabel.setTextFill(Color.web(Colors.values()[1].name()));
+                        creator.setTextFill(Color.web(Colors.values()[1].name()));
                     } else if (t1.equals(1)) {
                         usedBgColorFromEnum = 1;
                         usedTColorFromEnum = 0;
                         mainpane.styleProperty().set("-fx-background-color: " + Colors.values()[1].name());
                         headerLabel.setTextFill(Color.web(Colors.values()[0].name()));
+                        creator.setTextFill(Color.web(Colors.values()[0].name()));
                     } else if (t1.equals(2)) {
                         Random random = new Random();
                         int randomNumber = random.nextInt(10);
@@ -123,6 +127,7 @@ public class MainFxController implements Initializable {
                         }
                         usedTColorFromEnum = secondRandomNumber;
                         headerLabel.setTextFill(Color.web(Colors.values()[secondRandomNumber].name()));
+                        creator.setTextFill(Color.web(Colors.values()[secondRandomNumber].name()));
                     }
                 });
     }
@@ -133,65 +138,71 @@ public class MainFxController implements Initializable {
      * corresponding fxml-file.
      *
      * @param actionEvent pressed button
-     * @throws IOException if the object is null this throws an IOException
      */
-    public void openInfo(final ActionEvent actionEvent) throws IOException {
-        String calledId = ((Control) actionEvent.getSource()).getId();
-        Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        if(calledId.equals("steamidinfofx") || calledId.equals("steamwebapifx") || (calledId.equals("missingdatafx") && steamId.length() != STEAMIDLENGTH)){
-            fxmlLoader.setLocation(getClass()
-                    .getClassLoader()
-                    .getResource("fxml/" + calledId + ".fxml"));
-        } else {
-            fxmlLoader.setLocation(getClass()
-                    .getClassLoader()
-                    .getResource("fxml/successmessage.fxml"));
-        }
-
-        Parent root = fxmlLoader.load();
-
-        switch (calledId) {
-            case "steamidinfofx":
-                SteamIdInfoFxController steamIdInfoFxController = fxmlLoader.getController();
-                steamIdInfoFxController.setMatchingColors("-fx-background-color: " + Colors.values()[usedBgColorFromEnum].name(), Colors.values()[usedTColorFromEnum].name());
-                break;
-            case "steamwebapifx":
-                SteamWebApiFxController steamWebApiFxController = fxmlLoader.getController();
-                steamWebApiFxController.setMatchingColors("-fx-background-color: " + Colors.values()[usedBgColorFromEnum].name(), Colors.values()[usedTColorFromEnum].name());
-                break;
-            case "missingdatafx":
-                if (steamId.length() != STEAMIDLENGTH) {
-                    MissingDataFxController missingDataFxController = fxmlLoader.getController();
-                    missingDataFxController.setMatchingColors("-fx-background-color: " + Colors.values()[usedBgColorFromEnum].name(), Colors.values()[usedTColorFromEnum].name());
-                    break;
-                }
-            default:
-                SuccessMessageFxController successMessageFxController = fxmlLoader.getController();
-                successMessageFxController.setMatchingColors("-fx-background-color: " + Colors.values()[usedBgColorFromEnum].name(), Colors.values()[usedTColorFromEnum].name());
-        }
-
-        stage.setScene(new Scene(root));
-        stage.setTitle(r.getString("info"));
-        stage.initModality(Modality.WINDOW_MODAL);
-//        stage.initStyle(StageStyle.UNDECORATED);
-        stage.initOwner(
-                ((Node) actionEvent.getSource()).getScene().getWindow());
-        stage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (!isNowFocused) {
-                stage.hide();
+    public void openInfo(final ActionEvent actionEvent) {
+        try{
+            String calledId = ((Control) actionEvent.getSource()).getId();
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            if(calledId.equals("steamidinfofx") || calledId.equals("steamwebapifx") || (calledId.equals("missingdatafx"))){
+                fxmlLoader.setLocation(getClass()
+                        .getClassLoader()
+                        .getResource("fxml/" + calledId + ".fxml"));
+            } else {
+                fxmlLoader.setLocation(getClass()
+                        .getClassLoader()
+                        .getResource("fxml/successmessage.fxml"));
             }
-        });
-        stage.show();
+
+            Parent root = fxmlLoader.load();
+
+            switch (calledId) {
+                case "steamidinfofx":
+                    SteamIdInfoFxController steamIdInfoFxController = fxmlLoader.getController();
+                    steamIdInfoFxController.setMatchingColors("-fx-background-color: " + Colors.values()[usedBgColorFromEnum].name(), Colors.values()[usedTColorFromEnum].name());
+                    break;
+                case "steamwebapifx":
+                    SteamWebApiFxController steamWebApiFxController = fxmlLoader.getController();
+                    steamWebApiFxController.setMatchingColors("-fx-background-color: " + Colors.values()[usedBgColorFromEnum].name(), Colors.values()[usedTColorFromEnum].name());
+                    break;
+                case "missingdatafx":
+                    if (steamId.length() != STEAMIDLENGTH || webApi.isEmpty() || field_file_path.getText().isEmpty()) {
+                        MissingDataFxController missingDataFxController = fxmlLoader.getController();
+                        missingDataFxController.setMatchingColors("-fx-background-color: " + Colors.values()[usedBgColorFromEnum].name(), Colors.values()[usedTColorFromEnum].name());
+                        break;
+                    }
+                default:
+                    SuccessMessageFxController successMessageFxController = fxmlLoader.getController();
+                    successMessageFxController.setMatchingColors("-fx-background-color: " + Colors.values()[usedBgColorFromEnum].name(), Colors.values()[usedTColorFromEnum].name());
+            }
+
+            stage.setScene(new Scene(root));
+            stage.setTitle(r.getString("info"));
+            stage.initModality(Modality.WINDOW_MODAL);
+//        stage.initStyle(StageStyle.UNDECORATED);
+            stage.initOwner(
+                    ((Node) actionEvent.getSource()).getScene().getWindow());
+            stage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+                if (!isNowFocused) {
+                    stage.hide();
+                }
+            });
+            stage.show();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
 
-    public void openDirectory(final ActionEvent actionEvent) {
+    public void openDirectory() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
+        File defaultDirectory = new File("C:");
+        directoryChooser.setInitialDirectory(defaultDirectory);
         buttonsavepath.setOnAction(e -> {
             File selectedDirectory = directoryChooser.showDialog(ExcelInGamesMain.getStage());
-            File defaultDirectory = new File("c:/");
-            directoryChooser.setInitialDirectory(defaultDirectory);
-            field_file_path.setText(selectedDirectory.getAbsolutePath());
+            if(selectedDirectory != null){
+                field_file_path.setText(selectedDirectory.getAbsolutePath());
+            }
         });
     }
 
@@ -202,9 +213,8 @@ public class MainFxController implements Initializable {
      * a newly created workbook.
      *
      * @param actionEvent pressed button
-     * @throws IOException createSteamGamesExcel is using an HttpURLConnection
      */
-    public void createWorkbook(final ActionEvent actionEvent) throws IOException {
+    public void createWorkbook(final ActionEvent actionEvent) {
         steamId = fieldSteamId.getText();
         webApi = fieldWebApi.getText();
         String filePath = field_file_path.getText();

@@ -28,7 +28,7 @@
             <ChoiceBox fx:id="check_dark" prefHeight="25.0" prefWidth="100.0">
             </ChoiceBox>
             <Region prefHeight="30.0" prefWidth="269.0" HBox.hgrow="ALWAYS" />
-            <Label alignment="BOTTOM_RIGHT" text="funky - Version 1.0" textAlignment="CENTER">
+            <Label fx:id="creator" alignment="BOTTOM_RIGHT" text="funky - Version 1.0" textAlignment="CENTER">
                <HBox.margin>
                   <Insets right="5.0" top="8.0" />
                </HBox.margin></Label>
