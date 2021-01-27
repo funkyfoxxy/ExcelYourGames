@@ -20,6 +20,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
@@ -92,13 +94,27 @@ public class MainFxController implements Initializable {
      */
     @Override
     public void initialize(final URL url, final ResourceBundle resourceBundle) {
+        Image infoImageSteamId = new Image(getClass().getResourceAsStream("/images/info_black.png"));
+        ImageView infoSteamIdImageView = new ImageView(infoImageSteamId);
+        infoSteamIdImageView.setFitWidth(16);
+        infoSteamIdImageView.setFitHeight(16);
+        information_steamid.setGraphic(infoSteamIdImageView);
+        Image infoImageWebId = new Image(getClass().getResourceAsStream("/images/info_black.png"));
+        ImageView infoWebIdImageView = new ImageView(infoImageWebId);
+        infoWebIdImageView.setFitWidth(16);
+        infoWebIdImageView.setFitHeight(16);
+        information_webid.setGraphic(infoWebIdImageView);
+        Image image = new Image(getClass().getResourceAsStream("/images/folder_black.png"));
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(16);
+        imageView.setFitHeight(16);
+        buttonsavepath.setGraphic(imageView);
         create_xlsx.setText(r.getString("create"));
-        information_steamid.setText(r.getString("shortInfo"));
-        information_webid.setText(r.getString("shortInfo"));
+
         fieldSteamId.setPromptText(r.getString("fieldInfoId"));
         fieldWebApi.setPromptText(r.getString("fieldInfoApi"));
         field_file_path.setPromptText(r.getString("pathInfo"));
-        buttonsavepath.setText(r.getString("choosePath"));
+
         headerLabel.setText(r.getString("header"));
         check_dark.setItems(variousModes);
         check_dark.setValue(r.getString("defaultColor"));

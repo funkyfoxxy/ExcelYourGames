@@ -36,7 +36,7 @@ public class ExcelInGamesMain extends Application {
   /**
    * Start of the GUI for user input and output.
    *
-   * @param stage the final stage
+   * @param stage the parent stage of everything
    */
   @Override
   public void start(Stage stage) {
