@@ -25,7 +25,7 @@ public class CreateDataFxController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(MainFxController.steamId.length() == 17 && MainFxController.webApi.length() != 0 && MainFxController.filePath.length() != 0){
+        if(MainFxController.steamId.length() == 17 && MainFxController.webApi.length() != 0 && MainFxController.filePath.length() != 0 && !MainFxController.containsError){
             createdatalabel.setText(r.getString("success"));
         } else {
             createdatalabel.setText(r.getString("error"));

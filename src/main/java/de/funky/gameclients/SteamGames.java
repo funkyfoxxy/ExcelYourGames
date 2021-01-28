@@ -110,12 +110,11 @@ public class SteamGames {
    * @throws IOException requestSteamGames() is using HttpURLConnection
    */
   public void createSteamGamesExcel(final String steamId,
-                                    final String steamWebApi,
-                                    final String filePath) {
+                                    final String steamWebApi) throws IOException {
     int returnedCode = requestSteamGames(steamId, steamWebApi);
     if(returnedCode == 200){
       createSortedArrayOfSteamGames();
-      writeSteamGamesInWorkbook(filePath);
+      writeSteamGamesInWorkbook();
     }
   }
 
@@ -169,7 +168,6 @@ public class SteamGames {
    * way with every game and its corresponding play time.
    */
   public void createSortedArrayOfSteamGames() {
-    if(getJsonFile() != null){
       setAllGames(getJsonFile().getJSONObject("response")
               .getJSONArray("games"));
 
@@ -187,9 +185,6 @@ public class SteamGames {
               Comparator.comparingInt(o -> Integer.parseInt(o[1]))));
 
       setAllGamesAndTimes(gamesAndTime);
-    } else {
-      System.out.println("Lappen");
-    }
   }
 
   /**
@@ -199,13 +194,7 @@ public class SteamGames {
    *
    * @throws IOException workbook is using FileOutputStream()
    */
-  public void writeSteamGamesInWorkbook(String filePath) {
-    //todo: if there is no workbook existing, create one
-    // and pass that with the data
-    if (ExcelWorkbook.workbook == null) {
-      ExcelWorkbook workbook = new ExcelWorkbook();
-      workbook.creationOfSteamSheet(getAllGames(), getAllGamesAndTimes(), filePath);
-      //todo: if there is a workbook just pass the data
-    }
+  public void writeSteamGamesInWorkbook() {
+      ExcelWorkbook.creationOfSteamSheet(getAllGames(), getAllGamesAndTimes());
   }
 }

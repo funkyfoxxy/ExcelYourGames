@@ -1,5 +1,6 @@
 package de.funky.backend;
 
+import de.funky.controller.MainFxController;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
@@ -15,19 +16,9 @@ import java.io.IOException;
 public class ExcelWorkbook {
 
     public static XSSFWorkbook workbook;
-    private XSSFSheet steamSheet;
-    private XSSFCellStyle headerStyle;
-    private XSSFCellStyle columnStyle;
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
-    private String filePath;
+    private static XSSFSheet steamSheet;
+    private static XSSFCellStyle headerStyle;
+    private static XSSFCellStyle columnStyle;
 
     public ExcelWorkbook() {
     }
@@ -41,18 +32,18 @@ public class ExcelWorkbook {
     }
 
     public XSSFSheet getSteamSheet() {
-        return this.steamSheet;
+        return steamSheet;
     }
 
-    public XSSFCellStyle getHeaderStyle() {
-        return this.headerStyle;
+    public static XSSFCellStyle getHeaderStyle() {
+        return headerStyle;
     }
 
-    public XSSFCellStyle getColumnStyle() {
-        return this.columnStyle;
+    public static XSSFCellStyle getColumnStyle() {
+        return columnStyle;
     }
 
-    public void creationOfWorkbook() {
+    public static void creationOfWorkbook() {
         workbook = new XSSFWorkbook();
         XSSFFont headerFont = workbook.createFont();
         headerFont.setBold(true);
@@ -66,17 +57,16 @@ public class ExcelWorkbook {
         columnStyle.setAlignment(HorizontalAlignment.CENTER);
     }
 
-    public void creationOfSteamSheet(JSONArray allGames, String[][] gamesAndTime, String filePath) {
-        setFilePath(filePath);
+    public static void creationOfSteamSheet(JSONArray allGames, String[][] gamesAndTime) {
         if(workbook == null){
             creationOfWorkbook();
+            steamSheet = getWorkbook().createSheet("Steam");
         }
-        steamSheet = getWorkbook().createSheet("Steam");
         Row row = steamSheet.createRow(0);
         Cell cell = row.createCell(0);
-        cell.setCellStyle(headerStyle);
+        cell.setCellStyle(getHeaderStyle());
         Cell cell1 = row.createCell(1);
-        cell1.setCellStyle(headerStyle);
+        cell1.setCellStyle(getHeaderStyle());
         cell.setCellValue("Title of the Game");
         cell1.setCellValue("Time you played");
         int rowCount = 1;
@@ -84,24 +74,18 @@ public class ExcelWorkbook {
             row = steamSheet.createRow(rowCount++);
             cell = row.createCell(0);
             cell1 = row.createCell(1);
-            cell1.setCellStyle(columnStyle);
+            cell1.setCellStyle(getColumnStyle());
             cell.setCellValue(gamesAndTime[i][0]);
             cell1.setCellValue(Integer.parseInt(gamesAndTime[i][1]));
         }
         steamSheet.autoSizeColumn(0);
         steamSheet.autoSizeColumn(1);
-
-        //todo: this has to leave this method because it can only be written when every data has been acquired.
-        writingOfWorkbook();
     }
 
-    //todo: connect to UI where user provides their own file path
-    public void writingOfWorkbook() {
-        try{
-            workbook.write(new FileOutputStream(getFilePath() + "/AllGamesPlatforms.xlsx"));
-            workbook.close();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+//    public void creationOfGogSheet(){}
+
+    public static void writingOfWorkbook() throws IOException {
+         workbook.write(new FileOutputStream(MainFxController.filePath + "/AllGamesPlatforms.xlsx"));
+         workbook.close();
     }
 }

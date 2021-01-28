@@ -4,12 +4,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane fx:id="createdatapane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="103.0" prefWidth="348.0" stylesheets="@../cssstyling/mainstyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.funky.controller.CreateDataFxController">
-    <children>
-        <Label fx:id="createdatalabel" alignment="CENTER" layoutY="-1.0" prefHeight="103.0" prefWidth="348.0" textAlignment="CENTER">
-            <font>
-                <Font name="System Bold" size="18.0" />
-            </font>
-        </Label>
-    </children>
+<Pane fx:id="createdatapane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="103.0" prefWidth="348.0" stylesheets="@../cssstyling/mainstyle.css"
+      xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="de.funky.controller.CreateDataFxController">
+    <Label fx:id="createdatalabel" alignment="CENTER" layoutY="-1.0" prefHeight="103.0" prefWidth="348.0"
+           textAlignment="CENTER">
+        <font>
+            <Font name="System Bold" size="18.0"/>
+        </font>
+    </Label>
 </Pane>

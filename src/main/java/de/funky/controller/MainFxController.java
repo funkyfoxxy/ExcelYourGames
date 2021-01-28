@@ -1,6 +1,7 @@
 package de.funky.controller;
 
 import de.funky.backend.ExcelInGamesMain;
+import de.funky.backend.ExcelWorkbook;
 import de.funky.gameclients.SteamGames;
 
 import java.io.IOException;
@@ -61,6 +62,7 @@ public class MainFxController implements Initializable {
     public static String steamId;
     public static String webApi;
     public static String filePath;
+    public static boolean containsError;
 
     /**
      * Connects the textfield of the personal
@@ -223,17 +225,33 @@ public class MainFxController implements Initializable {
      * @param actionEvent pressed button
      */
     public void createWorkbook(final ActionEvent actionEvent) {
-        steamId = fieldSteamId.getText();
-        webApi = fieldWebApi.getText();
-        filePath = field_file_path.getText();
-        if (steamId.length() == STEAMIDLENGTH && !webApi.isEmpty() && !filePath.isEmpty()) {
-            SteamGames steamGames = new SteamGames();
-            steamGames.createSteamGamesExcel(steamId, webApi, filePath);
+        try{
+            if(checkIfSteamRequested()){
+                SteamGames steamGames = new SteamGames();
+                steamGames.createSteamGamesExcel(steamId, webApi);
+                containsError = false;
+            }
+//            if(checkIfGogRequested()){}
+            ExcelWorkbook.writingOfWorkbook();
             fieldSteamId.setText("");
             fieldWebApi.setText("");
             field_file_path.setText("");
+            openInfo(actionEvent);
+        } catch (IOException e){
+            containsError = true;
+            openInfo(actionEvent);
         }
-        openInfo(actionEvent);
     }
+
+    private boolean checkIfSteamRequested() {
+        steamId = fieldSteamId.getText();
+        webApi = fieldWebApi.getText();
+        filePath = field_file_path.getText();
+        return steamId.length() == STEAMIDLENGTH && !webApi.isEmpty() && !filePath.isEmpty();
+    }
+
+//    private boolean checkIfGogRequested() {
+//        return false;
+//    }
 
 }
