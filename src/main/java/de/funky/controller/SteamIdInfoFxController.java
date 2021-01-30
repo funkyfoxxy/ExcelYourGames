@@ -18,21 +18,25 @@ import javafx.scene.paint.Color;
 public class SteamIdInfoFxController implements Initializable {
 
   @FXML
-  public VBox steamidinfopane;
+  private VBox steamidinfopane;
   @FXML
-  public Label steamidinfolabel;
+  private Label steamidinfolabel;
   @FXML
-  public Hyperlink idfinderlink;
+  private Hyperlink idfinderlink;
 
   private final Locale locale = Locale.getDefault();
-  private final String language = locale.getLanguage();
-  private final String country = locale.getCountry();
-  private final Locale loc = new Locale(language, country);
   private final ResourceBundle res = ResourceBundle
-            .getBundle("MessageBundle", loc);
+            .getBundle("MessageBundle", locale);
 
+  /**
+   * Setting the information text message for the user about
+   * the steamId.
+   *
+   * @param url given URL
+   * @param resourceBundle given ResourceBundle
+   */
   @Override
-  public void initialize(URL url, ResourceBundle resourceBundle) {
+  public void initialize(final URL url, final ResourceBundle resourceBundle) {
     steamidinfolabel.setText(res.getString("steamIdInfoLabel"));
     idfinderlink.setText(res.getString("idfinderlink"));
   }
@@ -46,7 +50,14 @@ public class SteamIdInfoFxController implements Initializable {
     }
   }
 
-  public void setMatchingColors(String bg, String t) {
+  /**
+   * Setting the background color and the font color based on
+   * the colors that have been used in the parent or root window.
+   *
+   * @param bg background color
+   * @param t text color
+   */
+  public void setMatchingColors(final String bg, final String t) {
     steamidinfopane.styleProperty().set(bg);
     steamidinfolabel.setTextFill(Color.web(t));
   }

@@ -22,6 +22,10 @@ public class SteamGames {
    */
   private static final int DIVISOR = 60;
   /**
+   * Constant value for the successfull httpurlconnection.
+   */
+  private static final int SUCCESSCONNECTION = 200;
+  /**
    * JSONObject containing every information from REST request.
    */
   private JSONObject jsonFile;
@@ -113,7 +117,7 @@ public class SteamGames {
                                     final String steamWebApi)
           throws IOException {
     int returnedCode = requestSteamGames(steamId, steamWebApi);
-    if (returnedCode == 200) {
+    if (returnedCode == SUCCESSCONNECTION) {
       createSortedArrayOfSteamGames();
       writeSteamGamesInWorkbook();
     }
@@ -126,6 +130,8 @@ public class SteamGames {
    *
    * @param steamId given steamId from user
    * @param steamWebApi given steamWebApi from user
+   *
+   * @return either the success connection code or 0
    */
   public int requestSteamGames(final String steamId,
                                 final String steamWebApi) {

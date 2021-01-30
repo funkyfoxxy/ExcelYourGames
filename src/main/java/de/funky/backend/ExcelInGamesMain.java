@@ -9,26 +9,42 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
-
 /**
  * main class for the whole project.
  */
 public class ExcelInGamesMain extends Application {
 
+  /**
+   * Locale to retrieve system preferences and information.
+   */
   private final Locale locale = Locale.getDefault();
-  private final String language = locale.getLanguage();
-  private final String country = locale.getCountry();
-  private final Locale loc = new Locale(language, country);
-  private final ResourceBundle res = ResourceBundle
-          .getBundle("MessageBundle", loc);
 
+  /**
+   * Generating the ResourceBundle to retrieve the
+   * fitting MessageBundle out of resources.
+   */
+  private final ResourceBundle res = ResourceBundle
+          .getBundle("MessageBundle", locale);
+
+  /**
+   * Stage of the main window.
+   */
   private static Stage stage;
 
+  /**
+   * Getter for the main stage.
+   *
+   * @return stage
+   */
   public static Stage getStage() {
     return stage;
   }
 
+  /**
+   * Setter for the main stage.
+   *
+   * @param newStage Setting a new main stage
+   */
   public static void setStage(final Stage newStage) {
     ExcelInGamesMain.stage = newStage;
   }
@@ -57,7 +73,7 @@ public class ExcelInGamesMain extends Application {
   }
 
   /**
-   * main method for launching the GUI and the Api requests.
+   * Main method for launching the GUI and the Api requests.
    *
    * @param args the args
    */

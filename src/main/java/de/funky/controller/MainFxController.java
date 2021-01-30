@@ -37,34 +37,36 @@ import javafx.stage.Stage;
 public class MainFxController implements Initializable {
 
   @FXML
-  public Pane mainpane;
+  private Pane mainpane;
   @FXML
-  public ChoiceBox<String> check_dark;
+  private ChoiceBox<String> checkDark;
   @FXML
-  public Label headerLabel;
+  private Label headerLabel;
   @FXML
-  public Button buttonsavepath;
+  private Button buttonsavepath;
   @FXML
-  public TextField field_file_path;
+  private TextField fieldFilePath;
   @FXML
-  public Button create_xlsx;
+  private Button createXlsx;
   @FXML
-  public Button information_steamid;
+  private Button informationSteamId;
   @FXML
-  public Button information_webid;
+  private Button informationWebId;
   @FXML
-  public Label creator;
+  private Label creator;
 
   public enum Colors {
     black, white, green, yellow, blue, orange, red, pink, purple, grey
   }
 
-  public int usedBgColorFromEnum = 1;
-  public int usedTColorFromEnum = 0;
-  public static String steamId;
-  public static String webApi;
-  public static String filePath;
-  public static boolean containsError;
+  private int usedBgColorFromEnum = 1;
+  private int usedTextColorFromEnum = 0;
+  private static String steamId;
+  private static String webApi;
+  private static String filePath;
+  private static boolean containsError;
+  private static final int IMAGESIZE = 16;
+  private static final int NUMBEROFCOLORS = 10;
 
   /**
    * Connects the textfield of the personal
@@ -84,17 +86,133 @@ public class MainFxController implements Initializable {
    */
   private static final int STEAMIDLENGTH = 17;
 
+  /**
+   * Locale to retrieve system preferences and information.
+   */
   private final Locale locale = Locale.getDefault();
-  private final String language = locale.getLanguage();
-  private final String country = locale.getCountry();
-  private final Locale loc = new Locale(language, country);
-  private final ResourceBundle res = ResourceBundle
-          .getBundle("MessageBundle", loc);
 
-  ObservableList<String> variousModes = FXCollections
+  /**
+   * Generating the ResourceBundle to retrieve the
+   * fitting MessageBundle out of resources.
+   */
+  private final ResourceBundle res = ResourceBundle
+          .getBundle("MessageBundle", locale);
+
+  private final ObservableList<String> variousModes = FXCollections
           .observableArrayList(res.getString("black"),
                   res.getString("white"),
                   res.getString("surprise"));
+
+  /**
+   * Getter for the index that will be used from the ObservableList.
+   *
+   * @return index as int
+   */
+  public int getUsedBgColorFromEnum() {
+    return usedBgColorFromEnum;
+  }
+
+  /**
+   * Setter for the index that will be used from the ObservableList.
+   *
+   * @param newUsedBgColorFromEnum new index as int
+   */
+  public void setUsedBgColorFromEnum(final int newUsedBgColorFromEnum) {
+    this.usedBgColorFromEnum = newUsedBgColorFromEnum;
+  }
+
+  /**
+   * Getter for the index that will be used from the ObservableList.
+   *
+   * @return index as int
+   */
+  public int getUsedTextColorFromEnum() {
+    return usedTextColorFromEnum;
+  }
+
+  /**
+   * Setter for the index that will be used from the ObservableList.
+   *
+   * @param newUsedTextColorFromEnum new index as int
+   */
+  public void setUsedTextColorFromEnum(final int newUsedTextColorFromEnum) {
+    this.usedTextColorFromEnum = newUsedTextColorFromEnum;
+  }
+
+  /**
+   * Getter for the users steamId.
+   *
+   * @return steamId as String
+   */
+  public static String getSteamId() {
+    return steamId;
+  }
+
+  /**
+   * Setter for the users steamId.
+   *
+   * @param newSteamId new SteamId as String
+   */
+  public static void setSteamId(final String newSteamId) {
+    MainFxController.steamId = newSteamId;
+  }
+
+  /**
+   * Getter for the users webApiKey.
+   *
+   * @return webApi as String
+   */
+  public static String getWebApi() {
+    return webApi;
+  }
+
+  /**
+   * Setter for the users webApi.
+   *
+   * @param newWebApi new webApiKey as String
+   */
+  public static void setWebApi(final String newWebApi) {
+    MainFxController.webApi = newWebApi;
+  }
+
+  /**
+   * Getter for the filePath that the user selected.
+   *
+   * @return filePath as a String
+   */
+  public static String getFilePath() {
+    return filePath;
+  }
+
+  /**
+   * Setter for the filePath that he user selected.
+   *
+   * @param newFilePath new filePath as String
+   */
+  public static void setFilePath(final String newFilePath) {
+    MainFxController.filePath = newFilePath;
+  }
+
+  /**
+   * Returns if there is any error and therefore the process
+   * of creating workbook should be cancelled or not.
+   *
+   * @return containsError as boolean
+   */
+  public static boolean isContainsError() {
+    return containsError;
+  }
+
+  /**
+   * Sets the value of the boolean if there are errors in the
+   * process of creating the workbook or requesting data from the
+   * gameclient.
+   *
+   * @param newContainsError new containsError as boolean
+   */
+  public static void setContainsError(final boolean newContainsError) {
+    MainFxController.containsError = newContainsError;
+  }
 
   /**
    * Has to be implemented because of the Initializable.
@@ -103,29 +221,29 @@ public class MainFxController implements Initializable {
   public void initialize(final URL url, final ResourceBundle resourceBundle) {
     setButtonImages(Colors.values()[0].name());
 
-    create_xlsx.setText(res.getString("create"));
+    createXlsx.setText(res.getString("create"));
     headerLabel.setText(res.getString("header"));
 
     fieldSteamId.setPromptText(res.getString("fieldInfoId"));
     fieldWebApi.setPromptText(res.getString("fieldInfoApi"));
-    field_file_path.setPromptText(res.getString("pathInfo"));
+    fieldFilePath.setPromptText(res.getString("pathInfo"));
 
-    check_dark.setItems(variousModes);
-    check_dark.setValue(res.getString("defaultColor"));
+    checkDark.setItems(variousModes);
+    checkDark.setValue(res.getString("defaultColor"));
 
-    check_dark.getSelectionModel().selectedIndexProperty()
+    checkDark.getSelectionModel().selectedIndexProperty()
         .addListener((observableValue, number, t1) -> {
           if (t1.equals(0)) {
-            usedBgColorFromEnum = 0;
-            usedTColorFromEnum = 1;
+            setUsedBgColorFromEnum(0);
+            setUsedTextColorFromEnum(1);
             mainpane.styleProperty().set("-fx-background-color: "
                   + Colors.values()[0].name());
             headerLabel.setTextFill(Color.web(Colors.values()[1].name()));
             creator.setTextFill(Color.web(Colors.values()[1].name()));
             setButtonImages(Colors.values()[1].name());
           } else if (t1.equals(1)) {
-            usedBgColorFromEnum = 1;
-            usedTColorFromEnum = 0;
+            setUsedBgColorFromEnum(1);
+            setUsedTextColorFromEnum(0);
             mainpane.styleProperty().set("-fx-background-color: "
                   + Colors.values()[1].name());
             headerLabel.setTextFill(Color.web(Colors.values()[0].name()));
@@ -133,15 +251,16 @@ public class MainFxController implements Initializable {
             setButtonImages(Colors.values()[0].name());
           } else if (t1.equals(2)) {
             Random random = new Random();
-            int randomNumber = random.nextInt(10);
-            usedBgColorFromEnum = randomNumber;
+            int randomNumber = random.nextInt(NUMBEROFCOLORS);
+            setUsedBgColorFromEnum(randomNumber);
             mainpane.styleProperty().set("-fx-background-color: "
                   + Colors.values()[randomNumber].name());
-            int secondRandomNumber = random.nextInt(10);
-            if (secondRandomNumber == randomNumber && secondRandomNumber < 9) {
+            int secondRandomNumber = random.nextInt(NUMBEROFCOLORS);
+            if (secondRandomNumber == randomNumber
+                    && secondRandomNumber < (NUMBEROFCOLORS - 1)) {
               secondRandomNumber++;
             }
-            usedTColorFromEnum = secondRandomNumber;
+            setUsedTextColorFromEnum(secondRandomNumber);
             headerLabel.setTextFill(Color.web(
                   Colors.values()[secondRandomNumber].name()));
             creator.setTextFill(Color.web(
@@ -151,24 +270,24 @@ public class MainFxController implements Initializable {
         });
   }
 
-  private void setButtonImages(String name) {
+  private void setButtonImages(final String name) {
     Image infoImageSteamId = new Image(getClass()
             .getResourceAsStream("/images/info_" + name + ".png"));
     ImageView infoSteamIdImageView = new ImageView(infoImageSteamId);
-    infoSteamIdImageView.setFitWidth(16);
-    infoSteamIdImageView.setFitHeight(16);
-    information_steamid.setGraphic(infoSteamIdImageView);
+    infoSteamIdImageView.setFitWidth(IMAGESIZE);
+    infoSteamIdImageView.setFitHeight(IMAGESIZE);
+    informationSteamId.setGraphic(infoSteamIdImageView);
     Image infoImageWebId = new Image(getClass()
             .getResourceAsStream("/images/info_" + name + ".png"));
     ImageView infoWebIdImageView = new ImageView(infoImageWebId);
-    infoWebIdImageView.setFitWidth(16);
-    infoWebIdImageView.setFitHeight(16);
-    information_webid.setGraphic(infoWebIdImageView);
+    infoWebIdImageView.setFitWidth(IMAGESIZE);
+    infoWebIdImageView.setFitHeight(IMAGESIZE);
+    informationWebId.setGraphic(infoWebIdImageView);
     Image image = new Image(getClass()
             .getResourceAsStream("/images/folder_black.png"));
     ImageView imageView = new ImageView(image);
-    imageView.setFitWidth(16);
-    imageView.setFitHeight(16);
+    imageView.setFitWidth(IMAGESIZE);
+    imageView.setFitHeight(IMAGESIZE);
     buttonsavepath.setGraphic(imageView);
   }
 
@@ -193,20 +312,20 @@ public class MainFxController implements Initializable {
         case "steamidinfofx":
           SteamIdInfoFxController siiController = fxmlLoader.getController();
           siiController.setMatchingColors("-fx-background-color: "
-                  + Colors.values()[usedBgColorFromEnum].name(),
-                  Colors.values()[usedTColorFromEnum].name());
+                  + Colors.values()[getUsedBgColorFromEnum()].name(),
+                  Colors.values()[getUsedTextColorFromEnum()].name());
           break;
         case "steamwebapifx":
           SteamWebApiFxController swaController = fxmlLoader.getController();
           swaController.setMatchingColors("-fx-background-color: "
-                  + Colors.values()[usedBgColorFromEnum].name(),
-                  Colors.values()[usedTColorFromEnum].name());
+                  + Colors.values()[getUsedBgColorFromEnum()].name(),
+                  Colors.values()[getUsedTextColorFromEnum()].name());
           break;
         case "createdatafx":
           CreateDataFxController smfController = fxmlLoader.getController();
           smfController.setMatchingColors("-fx-background-color: "
-                            + Colors.values()[usedBgColorFromEnum].name(),
-                            Colors.values()[usedTColorFromEnum].name());
+                            + Colors.values()[getUsedBgColorFromEnum()].name(),
+                            Colors.values()[getUsedTextColorFromEnum()].name());
           break;
         default:
           System.out.println("Default!");
@@ -235,7 +354,7 @@ public class MainFxController implements Initializable {
     File selectedDirectory = directoryChooser
             .showDialog(ExcelInGamesMain.getStage());
     if (selectedDirectory != null) {
-      field_file_path.setText(selectedDirectory.getAbsolutePath());
+      fieldFilePath.setText(selectedDirectory.getAbsolutePath());
     }
   }
 
@@ -251,28 +370,28 @@ public class MainFxController implements Initializable {
     try {
       if (checkIfSteamRequested()) {
         SteamGames steamGames = new SteamGames();
-        steamGames.createSteamGamesExcel(steamId, webApi);
-        containsError = false;
+        steamGames.createSteamGamesExcel(getSteamId(), getWebApi());
+        setContainsError(false);
       }
       //      if(checkIfGogRequested()){}
       ExcelWorkbook.writingOfWorkbook();
       fieldSteamId.setText("");
       fieldWebApi.setText("");
-      field_file_path.setText("");
+      fieldFilePath.setText("");
       openInfo(actionEvent);
     } catch (IOException e) {
-      containsError = true;
+      setContainsError(true);
       openInfo(actionEvent);
     }
   }
 
   private boolean checkIfSteamRequested() {
-    steamId = fieldSteamId.getText();
-    webApi = fieldWebApi.getText();
-    filePath = field_file_path.getText();
-    return steamId.length() == STEAMIDLENGTH
-                && !webApi.isEmpty()
-                && !filePath.isEmpty();
+    setSteamId(fieldSteamId.getText());
+    setWebApi(fieldWebApi.getText());
+    setFilePath(fieldFilePath.getText());
+    return getSteamId().length() == STEAMIDLENGTH
+                && !getWebApi().isEmpty()
+                && !getFilePath().isEmpty();
   }
 
   //    private boolean checkIfGogRequested() {

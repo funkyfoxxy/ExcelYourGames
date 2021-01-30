@@ -17,21 +17,25 @@ import javafx.scene.paint.Color;
 public class SteamWebApiFxController implements Initializable {
 
   @FXML
-  public VBox steamwebapipane;
+  private VBox steamwebapipane;
   @FXML
-  public Label steamwebapilabel;
+  private Label steamwebapilabel;
   @FXML
-  public Hyperlink webapikeyfinderlink;
+  private Hyperlink webapikeyfinderlink;
 
   private final Locale locale = Locale.getDefault();
-  private final String language = locale.getLanguage();
-  private final String country = locale.getCountry();
-  private final Locale loc = new Locale(language, country);
   private final ResourceBundle res = ResourceBundle
-          .getBundle("MessageBundle", loc);
+          .getBundle("MessageBundle", locale);
 
+  /**
+   * Setting the information text message for the user about
+   * the webApiKey.
+   *
+   * @param url given URL
+   * @param resourceBundle given ResourceBundle
+   */
   @Override
-  public void initialize(URL url, ResourceBundle resourceBundle) {
+  public void initialize(final URL url, final ResourceBundle resourceBundle) {
     steamwebapilabel.setText(res.getString("steamWebInfoLabel"));
     webapikeyfinderlink.setText(res.getString("webapikeyfinderlink"));
   }
@@ -45,7 +49,14 @@ public class SteamWebApiFxController implements Initializable {
     }
   }
 
-  public void setMatchingColors(String bg, String t) {
+  /**
+   * Setting the background color and the font color based on
+   * the colors that have been used in the parent or root window.
+   *
+   * @param bg background color
+   * @param t text color
+   */
+  public void setMatchingColors(final String bg, final String t) {
     steamwebapipane.styleProperty().set(bg);
     steamwebapilabel.setTextFill(Color.web(t));
   }
