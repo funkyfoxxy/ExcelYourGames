@@ -144,7 +144,11 @@ public class ExcelWorkbook {
     steamSheet.autoSizeColumn(1);
   }
 
-  //    public void creationOfGogSheet(){}
+  //  /**
+  //   * For the future use if the RestAPI from gog is working again.
+  //   */
+  //  public void creationOfGogSheet(){
+  //  }
 
   /**
    * Writing and closing the workbook.

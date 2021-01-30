@@ -21,18 +21,22 @@ public class SteamGames {
    * Constant of value 60.
    */
   private static final int DIVISOR = 60;
+
   /**
    * Constant value for the successfull httpurlconnection.
    */
   private static final int SUCCESSCONNECTION = 200;
+
   /**
    * JSONObject containing every information from REST request.
    */
   private JSONObject jsonFile;
+
   /**
    * JSONArray in which every block is one game.
    */
   private JSONArray allGames;
+
   /**
    * 2D String array that is used to save the name
    * and also the played time of every game.
@@ -170,9 +174,10 @@ public class SteamGames {
   }
 
   /**
-   * Method to create out of the JSONObject that contains every
-   * information, a 2D array that is ordered in a chronological
-   * way with every game and its corresponding play time.
+   * Method to create a 2D array out of the JSONObject
+   * that contains every information. The 2D array is
+   * ordered in a chronological way with every game
+   * and its corresponding play time.
    */
   public void createSortedArrayOfSteamGames() {
     setAllGames(getJsonFile().getJSONObject("response")
@@ -198,8 +203,6 @@ public class SteamGames {
    * Method that is used to write the processed data into the already
    * existing workbook or is used to create a new workbook and then
    * write every processed data into this newly created workbook.
-   *
-   * @throws IOException workbook is using FileOutputStream()
    */
   public void writeSteamGamesInWorkbook() {
     ExcelWorkbook.creationOfSteamSheet(getAllGames(), getAllGamesAndTimes());

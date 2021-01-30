@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * main class for the whole project.
+ * Main class for the whole project.
  */
 public class ExcelInGamesMain extends Application {
 
@@ -48,8 +48,6 @@ public class ExcelInGamesMain extends Application {
   public static void setStage(final Stage newStage) {
     ExcelInGamesMain.stage = newStage;
   }
-
-
 
   /**
    * Start of the GUI for user input and output.

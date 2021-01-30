@@ -36,51 +36,115 @@ import javafx.stage.Stage;
  */
 public class MainFxController implements Initializable {
 
+  /**
+   * Showing every label and button.
+   */
   @FXML
   private Pane mainpane;
+
+  /**
+   * Offers the option to choose between various colors.
+   */
   @FXML
   private ChoiceBox<String> checkDark;
+
+  /**
+   * The header of the window.
+   */
   @FXML
   private Label headerLabel;
+
+  /**
+   * Opening the DirectoryChooser.
+   */
   @FXML
   private Button buttonsavepath;
+
+  /**
+   * Showing the user selected filePath.
+   */
   @FXML
   private TextField fieldFilePath;
+
+  /**
+   * Triggers the creation of workbook.
+   */
   @FXML
   private Button createXlsx;
+
+  /**
+   * Gives information about the users SteamId.
+   */
   @FXML
   private Button informationSteamId;
+
+  /**
+   * Gives information about the users SteamWebApiKey.
+   */
   @FXML
   private Button informationWebId;
+
+  /**
+   * Informs about the creator and the version of this program.
+   */
   @FXML
   private Label creator;
 
-  public enum Colors {
-    black, white, green, yellow, blue, orange, red, pink, purple, grey
-  }
-
-  private int usedBgColorFromEnum = 1;
-  private int usedTextColorFromEnum = 0;
-  private static String steamId;
-  private static String webApi;
-  private static String filePath;
-  private static boolean containsError;
-  private static final int IMAGESIZE = 16;
-  private static final int NUMBEROFCOLORS = 10;
-
   /**
-   * Connects the textfield of the personal
-   * SteamId of the GUI with the controller.
-   */
+     * Connects the textfield of the personal
+     * SteamId of the GUI with the controller.
+     */
   @FXML
   private TextField fieldSteamId;
+
   /**
-   * Connects the textfield of the personal
-   * SteamWebApiKey of the GUI with the
-   * controller.
-   */
+     * Connects the textfield of the personal
+     * SteamWebApiKey of the GUI with the
+     * controller.
+     */
   @FXML
   private TextField fieldWebApi;
+
+  /**
+   * Index that is chosen from the enum as the background color.
+   */
+  private int usedBgColorFromEnum = 1;
+
+  /**
+   * Index that is chosen from the enum as the background color.
+   */
+  private int usedTextColorFromEnum = 0;
+
+  /**
+   * SteamId given by the user.
+   */
+  private static String steamId;
+
+  /**
+   * WebApiKey given by the user.
+   */
+  private static String webApi;
+
+  /**
+   * Filepath chosen by the user.
+   */
+  private static String filePath;
+
+  /**
+   * If an error occured somewhere this will stop further processing.
+   */
+  private static boolean containsError;
+
+  /**
+   * General size of the imageheight and -width.
+   */
+  private static final int IMAGESIZE = 16;
+
+  /**
+   * Number of colors that are present inside the enum.
+   */
+  private static final int NUMBEROFCOLORS = 10;
+
   /**
    * The personal SteamId will always be 17 characters long.
    */
@@ -98,10 +162,227 @@ public class MainFxController implements Initializable {
   private final ResourceBundle res = ResourceBundle
           .getBundle("MessageBundle", locale);
 
+  /**
+   * ObservableList of Strings that is used to create the
+   * ChoiceBox content.
+   */
   private final ObservableList<String> variousModes = FXCollections
           .observableArrayList(res.getString("black"),
                   res.getString("white"),
                   res.getString("surprise"));
+
+  /**
+   * Enum to list every color that can be used as background or text.
+   */
+  public enum Colors {
+      /**
+       * List of 10 colors to be used..
+       */
+      black, white, green, yellow, blue, orange, red, pink, purple, grey
+  }
+
+  /**
+   * Getter for the mainpane.
+   *
+   * @return mainpane
+   */
+  public Pane getMainpane() {
+    return mainpane;
+  }
+
+  //  /**
+  //   * Setter for the mainpane.
+  //   *
+  //   * @param newMainpane specified new pane
+  //   */
+  //  public void setMainpane(final Pane newMainpane) {
+  //    this.mainpane = newMainpane;
+  //  }
+
+  /**
+   * Getter for the ChoiceBox.
+   *
+   * @return checkDark ChoiceBox
+   */
+  public ChoiceBox<String> getCheckDark() {
+    return checkDark;
+  }
+
+  //  /**
+  //   * Setter for the ChoiceBox.
+  //   *
+  //   * @param newCheckDark specified new ChoiceBox
+  //   */
+  //  public void setCheckDark(final ChoiceBox<String> newCheckDark) {
+  //    this.checkDark = newCheckDark;
+  //  }
+
+  /**
+   * Getter for the headerlabel.
+   *
+   * @return headerlabel
+   */
+  public Label getHeaderLabel() {
+    return headerLabel;
+  }
+
+  //  /**
+  //   * Setter for the headerlabel.
+  //   *
+  //   * @param newHeaderLabel specified new label
+  //   */
+  //  public void setHeaderLabel(final Label newHeaderLabel) {
+  //    this.headerLabel = newHeaderLabel;
+  //  }
+
+  /**
+   * Getter for the button that lets you choose the filepath.
+   *
+   * @return buttonsavepath as button
+   */
+  public Button getButtonsavepath() {
+    return buttonsavepath;
+  }
+
+  //  /**
+  //   * Setter for the button that lets you choose the filepath.
+  //   *
+  //   * @param newButtonsavepath specified new button
+  //   */
+  //  public void setButtonsavepath(final Button newButtonsavepath) {
+  //    this.buttonsavepath = newButtonsavepath;
+  //  }
+
+  /**
+   * Getter for the filepath that the user entered.
+   *
+   * @return fieldFilePath as TextField
+   */
+  public TextField getFieldFilePath() {
+    return fieldFilePath;
+  }
+
+  //  /**
+  //   * Setter for the filepath that the user entered.
+  //   *
+  //   * @param newFieldFilePath specified new TextField
+  //   */
+  //  public void setFieldFilePath(final TextField newFieldFilePath) {
+  //    this.fieldFilePath = newFieldFilePath;
+  //  }
+
+  /**
+   * Getter for the button that starts the creation of the workbook.
+   *
+   * @return createXlsx as Button
+   */
+  public Button getCreateXlsx() {
+    return createXlsx;
+  }
+
+  //  /**
+  //   * Setter for the button that starts the creation of the workbook.
+  //   *
+  //   * @param newCreateXlsx specified new Button
+  //   */
+  //  public void setCreateXlsx(final Button newCreateXlsx) {
+  //    this.createXlsx = newCreateXlsx;
+  //  }
+
+  /**
+   * Getter for the button that gives the user info about the SteamId.
+   *
+   * @return informationSteamId as Button
+   */
+  public Button getInformationSteamId() {
+    return informationSteamId;
+  }
+
+  //  /**
+  //   * Setter for the button that gives the user info about the SteamId.
+  //   *
+  //   * @param newInformationSteamId specified new Button
+  //   */
+  //  public void setInformationSteamId(final Button newInformationSteamId) {
+  //    this.informationSteamId = newInformationSteamId;
+  //  }
+
+  /**
+   * Getter for the button that gives the user info about the SteamWebApiKey.
+   *
+   * @return informationWebId as Button
+   */
+  public Button getInformationWebId() {
+    return informationWebId;
+  }
+
+  //  /**
+  //   * Setter for the button that gives the user info
+  //   * about the SteamWebApiKey.
+  //   *
+  //   * @param newInformationWebId specified new Button
+  //   */
+  //  public void setInformationWebId(final Button newInformationWebId) {
+  //    this.informationWebId = newInformationWebId;
+  //  }
+
+  /**
+   * Getter for the Label that informs about the creator of this program.
+   *
+   * @return creator as String
+   */
+  public Label getCreator() {
+    return creator;
+  }
+
+  //  /**
+  //   * Setter for the Label that informs about the creator of this program.
+  //   *
+  //   * @param newCreator specified new Label
+  //   */
+  //  public void setCreator(final Label newCreator) {
+  //    this.creator = newCreator;
+  //  }
+
+  /**
+   * Getter for the TextField in which the user had given
+   * the personal SteamId.
+   *
+   * @return fieldSteamId as String
+   */
+  public TextField getFieldSteamId() {
+    return fieldSteamId;
+  }
+
+  //  /**
+  //     * Setter for the TextField in which the user had given
+  //     * the personal SteamId.
+  //     *
+  //     * @param newFieldSteamId specified new TextField
+  //     */
+  //  public void setFieldSteamId(final TextField newFieldSteamId) {
+  //    this.fieldSteamId = newFieldSteamId;
+  //  }
+
+  /**
+     * Getter for the TextField in which the user had given
+     * the personal SteamWebApiKey.
+     *
+     * @return fieldWebApi as TextField
+     */
+  public TextField getFieldWebApi() {
+    return fieldWebApi;
+  }
+
+  //  /**
+  //     * Setter for the TextField in which the user had given
+  //     * the personal SteamWebApiKey.
+  //     *
+  //     * @param newFieldWebApi specified new TextField
+  //     */
+  //  public void setFieldWebApi(final TextField newFieldWebApi) {
+  //    this.fieldWebApi = newFieldWebApi;
+  //  }
 
   /**
    * Getter for the index that will be used from the ObservableList.
@@ -215,45 +496,45 @@ public class MainFxController implements Initializable {
   }
 
   /**
-   * Has to be implemented because of the Initializable.
+   * Initialization of the contents of the labels, colors and buttons.
    */
   @Override
   public void initialize(final URL url, final ResourceBundle resourceBundle) {
     setButtonImages(Colors.values()[0].name());
 
-    createXlsx.setText(res.getString("create"));
-    headerLabel.setText(res.getString("header"));
+    getCreateXlsx().setText(res.getString("create"));
+    getHeaderLabel().setText(res.getString("header"));
 
-    fieldSteamId.setPromptText(res.getString("fieldInfoId"));
-    fieldWebApi.setPromptText(res.getString("fieldInfoApi"));
-    fieldFilePath.setPromptText(res.getString("pathInfo"));
+    getFieldSteamId().setPromptText(res.getString("fieldInfoId"));
+    getFieldWebApi().setPromptText(res.getString("fieldInfoApi"));
+    getFieldFilePath().setPromptText(res.getString("pathInfo"));
 
-    checkDark.setItems(variousModes);
-    checkDark.setValue(res.getString("defaultColor"));
+    getCheckDark().setItems(variousModes);
+    getCheckDark().setValue(res.getString("defaultColor"));
 
-    checkDark.getSelectionModel().selectedIndexProperty()
+    getCheckDark().getSelectionModel().selectedIndexProperty()
         .addListener((observableValue, number, t1) -> {
           if (t1.equals(0)) {
             setUsedBgColorFromEnum(0);
             setUsedTextColorFromEnum(1);
-            mainpane.styleProperty().set("-fx-background-color: "
+            getMainpane().styleProperty().set("-fx-background-color: "
                   + Colors.values()[0].name());
-            headerLabel.setTextFill(Color.web(Colors.values()[1].name()));
-            creator.setTextFill(Color.web(Colors.values()[1].name()));
+            getHeaderLabel().setTextFill(Color.web(Colors.values()[1].name()));
+            getCreator().setTextFill(Color.web(Colors.values()[1].name()));
             setButtonImages(Colors.values()[1].name());
           } else if (t1.equals(1)) {
             setUsedBgColorFromEnum(1);
             setUsedTextColorFromEnum(0);
-            mainpane.styleProperty().set("-fx-background-color: "
+            getMainpane().styleProperty().set("-fx-background-color: "
                   + Colors.values()[1].name());
-            headerLabel.setTextFill(Color.web(Colors.values()[0].name()));
-            creator.setTextFill(Color.web(Colors.values()[0].name()));
+            getHeaderLabel().setTextFill(Color.web(Colors.values()[0].name()));
+            getCreator().setTextFill(Color.web(Colors.values()[0].name()));
             setButtonImages(Colors.values()[0].name());
           } else if (t1.equals(2)) {
             Random random = new Random();
             int randomNumber = random.nextInt(NUMBEROFCOLORS);
             setUsedBgColorFromEnum(randomNumber);
-            mainpane.styleProperty().set("-fx-background-color: "
+            getMainpane().styleProperty().set("-fx-background-color: "
                   + Colors.values()[randomNumber].name());
             int secondRandomNumber = random.nextInt(NUMBEROFCOLORS);
             if (secondRandomNumber == randomNumber
@@ -261,34 +542,39 @@ public class MainFxController implements Initializable {
               secondRandomNumber++;
             }
             setUsedTextColorFromEnum(secondRandomNumber);
-            headerLabel.setTextFill(Color.web(
+            getHeaderLabel().setTextFill(Color.web(
                   Colors.values()[secondRandomNumber].name()));
-            creator.setTextFill(Color.web(
+            getCreator().setTextFill(Color.web(
                   Colors.values()[secondRandomNumber].name()));
             setButtonImages(Colors.values()[0].name());
           }
         });
   }
 
+  /**
+   * Setting the folder and the info image for every button on mainpane.
+   *
+   * @param name name of the file that has to be used
+   */
   private void setButtonImages(final String name) {
     Image infoImageSteamId = new Image(getClass()
             .getResourceAsStream("/images/info_" + name + ".png"));
     ImageView infoSteamIdImageView = new ImageView(infoImageSteamId);
     infoSteamIdImageView.setFitWidth(IMAGESIZE);
     infoSteamIdImageView.setFitHeight(IMAGESIZE);
-    informationSteamId.setGraphic(infoSteamIdImageView);
+    getInformationSteamId().setGraphic(infoSteamIdImageView);
     Image infoImageWebId = new Image(getClass()
             .getResourceAsStream("/images/info_" + name + ".png"));
     ImageView infoWebIdImageView = new ImageView(infoImageWebId);
     infoWebIdImageView.setFitWidth(IMAGESIZE);
     infoWebIdImageView.setFitHeight(IMAGESIZE);
-    informationWebId.setGraphic(infoWebIdImageView);
+    getInformationWebId().setGraphic(infoWebIdImageView);
     Image image = new Image(getClass()
             .getResourceAsStream("/images/folder_black.png"));
     ImageView imageView = new ImageView(image);
     imageView.setFitWidth(IMAGESIZE);
     imageView.setFitHeight(IMAGESIZE);
-    buttonsavepath.setGraphic(imageView);
+    getButtonsavepath().setGraphic(imageView);
   }
 
   /**
@@ -328,7 +614,7 @@ public class MainFxController implements Initializable {
                             Colors.values()[getUsedTextColorFromEnum()].name());
           break;
         default:
-          System.out.println("Default!");
+          break;
       }
 
       stage.setScene(new Scene(root));
@@ -349,12 +635,15 @@ public class MainFxController implements Initializable {
     }
   }
 
+  /**
+   * The buttonsavepath Button opens the system own DirectoryChooser.
+   */
   public void openDirectory() {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     File selectedDirectory = directoryChooser
             .showDialog(ExcelInGamesMain.getStage());
     if (selectedDirectory != null) {
-      fieldFilePath.setText(selectedDirectory.getAbsolutePath());
+      getFieldFilePath().setText(selectedDirectory.getAbsolutePath());
     }
   }
 
@@ -375,9 +664,9 @@ public class MainFxController implements Initializable {
       }
       //      if(checkIfGogRequested()){}
       ExcelWorkbook.writingOfWorkbook();
-      fieldSteamId.setText("");
-      fieldWebApi.setText("");
-      fieldFilePath.setText("");
+      getFieldSteamId().setText("");
+      getFieldWebApi().setText("");
+      getFieldFilePath().setText("");
       openInfo(actionEvent);
     } catch (IOException e) {
       setContainsError(true);
@@ -385,17 +674,26 @@ public class MainFxController implements Initializable {
     }
   }
 
+  /**
+   * Checking if the user wants his steam games to be included.
+   *
+   * @return boolean
+   */
   private boolean checkIfSteamRequested() {
-    setSteamId(fieldSteamId.getText());
-    setWebApi(fieldWebApi.getText());
-    setFilePath(fieldFilePath.getText());
+    setSteamId(getFieldSteamId().getText());
+    setWebApi(getFieldWebApi().getText());
+    setFilePath(getFieldFilePath().getText());
     return getSteamId().length() == STEAMIDLENGTH
                 && !getWebApi().isEmpty()
                 && !getFilePath().isEmpty();
   }
 
-  //    private boolean checkIfGogRequested() {
-  //        return false;
-  //    }
-
+  //  /**
+  //   * For future use if the REST-API from gog is working again.
+  //   *
+  //   * @return boolean
+  //   */
+  //  private boolean checkIfGogRequested() {
+  //    return false;
+  //  }
 }

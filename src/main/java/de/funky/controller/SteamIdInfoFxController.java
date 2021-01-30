@@ -14,17 +14,38 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-
+/**
+ * Controller for the steamidinfofx.fxml.
+ */
 public class SteamIdInfoFxController implements Initializable {
 
+  /**
+   * Pane that is used to contain the label and link.
+   */
   @FXML
   private VBox steamidinfopane;
+
+  /**
+   * Label that is used to show the info about the users SteamId.
+   */
   @FXML
   private Label steamidinfolabel;
+
+  /**
+   * Hyperlink to make it easier for the user to find his SteamId.
+   */
   @FXML
   private Hyperlink idfinderlink;
 
+  /**
+   * Locale to retrieve system preferences and information.
+   */
   private final Locale locale = Locale.getDefault();
+
+  /**
+   * Generating the ResourceBundle to retrieve the
+   * fitting MessageBundle out of resources.
+   */
   private final ResourceBundle res = ResourceBundle
             .getBundle("MessageBundle", locale);
 
@@ -41,6 +62,9 @@ public class SteamIdInfoFxController implements Initializable {
     idfinderlink.setText(res.getString("idfinderlink"));
   }
 
+  /**
+   * Opens the default Browser of the users system.
+   */
   public void openBrowser() {
     try {
       Desktop.getDesktop()
