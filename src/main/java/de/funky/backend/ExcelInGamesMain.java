@@ -1,25 +1,27 @@
 package de.funky.backend;
 
+import java.util.Locale;
+import java.util.Objects;
+import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.Locale;
-import java.util.Objects;
-import java.util.ResourceBundle;
+
 
 /**
  * main class for the whole project.
  */
 public class ExcelInGamesMain extends Application {
 
-  Locale locale = Locale.getDefault();
-  String language = locale.getLanguage();
-  String country = locale.getCountry();
-  Locale l = new Locale(language,country);
-  ResourceBundle r = ResourceBundle.getBundle("MessageBundle", l);
+  private final Locale locale = Locale.getDefault();
+  private final String language = locale.getLanguage();
+  private final String country = locale.getCountry();
+  private final Locale loc = new Locale(language, country);
+  private final ResourceBundle res = ResourceBundle
+          .getBundle("MessageBundle", loc);
 
   private static Stage stage;
 
@@ -27,8 +29,8 @@ public class ExcelInGamesMain extends Application {
     return stage;
   }
 
-  public static void setStage(Stage stage) {
-    ExcelInGamesMain.stage = stage;
+  public static void setStage(final Stage newStage) {
+    ExcelInGamesMain.stage = newStage;
   }
 
 
@@ -36,19 +38,19 @@ public class ExcelInGamesMain extends Application {
   /**
    * Start of the GUI for user input and output.
    *
-   * @param stage the parent stage of everything
+   * @param newStage the parent stage of everything
    */
   @Override
-  public void start(Stage stage) {
-    try{
+  public void start(final Stage newStage) {
+    try {
       Parent root = FXMLLoader.load(Objects.requireNonNull(
               getClass().getClassLoader().getResource("fxml/mainfx.fxml")));
       root.setStyle("-fx-background-color: white");
-      stage.setTitle(r.getString("title"));
-      stage.setScene(new Scene(root));
-      setStage(stage);
-      stage.show();
-    } catch (Exception e){
+      newStage.setTitle(res.getString("title"));
+      newStage.setScene(new Scene(root));
+      setStage(newStage);
+      newStage.show();
+    } catch (Exception e) {
       e.printStackTrace();
     }
 

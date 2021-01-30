@@ -110,9 +110,10 @@ public class SteamGames {
    * @throws IOException requestSteamGames() is using HttpURLConnection
    */
   public void createSteamGamesExcel(final String steamId,
-                                    final String steamWebApi) throws IOException {
+                                    final String steamWebApi)
+          throws IOException {
     int returnedCode = requestSteamGames(steamId, steamWebApi);
-    if(returnedCode == 200){
+    if (returnedCode == 200) {
       createSortedArrayOfSteamGames();
       writeSteamGamesInWorkbook();
     }
@@ -168,23 +169,23 @@ public class SteamGames {
    * way with every game and its corresponding play time.
    */
   public void createSortedArrayOfSteamGames() {
-      setAllGames(getJsonFile().getJSONObject("response")
+    setAllGames(getJsonFile().getJSONObject("response")
               .getJSONArray("games"));
 
-      String[][] gamesAndTime = new String[allGames.length()][2];
+    String[][] gamesAndTime = new String[allGames.length()][2];
 
-      for (int i = 0; i < allGames.length(); i++) {
-        String gameName = allGames.getJSONObject(i).getString("name");
-        String gameTime = String.valueOf((allGames.getJSONObject(i)
-                .getInt("playtime_forever") / getDivisor()));
-        gamesAndTime[i][0] = gameName;
-        gamesAndTime[i][1] = gameTime;
-      }
+    for (int i = 0; i < allGames.length(); i++) {
+      String gameName = allGames.getJSONObject(i).getString("name");
+      String gameTime = String.valueOf((allGames.getJSONObject(i)
+             .getInt("playtime_forever") / getDivisor()));
+      gamesAndTime[i][0] = gameName;
+      gamesAndTime[i][1] = gameTime;
+    }
 
-      Arrays.sort(gamesAndTime, Collections.reverseOrder(
-              Comparator.comparingInt(o -> Integer.parseInt(o[1]))));
+    Arrays.sort(gamesAndTime, Collections.reverseOrder(
+          Comparator.comparingInt(o -> Integer.parseInt(o[1]))));
 
-      setAllGamesAndTimes(gamesAndTime);
+    setAllGamesAndTimes(gamesAndTime);
   }
 
   /**
@@ -195,6 +196,6 @@ public class SteamGames {
    * @throws IOException workbook is using FileOutputStream()
    */
   public void writeSteamGamesInWorkbook() {
-      ExcelWorkbook.creationOfSteamSheet(getAllGames(), getAllGamesAndTimes());
+    ExcelWorkbook.creationOfSteamSheet(getAllGames(), getAllGamesAndTimes());
   }
 }
