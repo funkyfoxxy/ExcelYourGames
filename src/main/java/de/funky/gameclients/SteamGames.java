@@ -21,14 +21,22 @@ public class SteamGames {
    * Constant of value 60.
    */
   private static final int DIVISOR = 60;
+
+  /**
+   * Constant value for the successfull httpurlconnection.
+   */
+  private static final int SUCCESSCONNECTION = 200;
+
   /**
    * JSONObject containing every information from REST request.
    */
   private JSONObject jsonFile;
+
   /**
    * JSONArray in which every block is one game.
    */
   private JSONArray allGames;
+
   /**
    * 2D String array that is used to save the name
    * and also the played time of every game.
@@ -112,9 +120,11 @@ public class SteamGames {
   public void createSteamGamesExcel(final String steamId,
                                     final String steamWebApi)
           throws IOException {
-    requestSteamGames(steamId, steamWebApi);
-    createSortedArrayOfSteamGames();
-    writeSteamGamesInWorkbook();
+    int returnedCode = requestSteamGames(steamId, steamWebApi);
+    if (returnedCode == SUCCESSCONNECTION) {
+      createSortedArrayOfSteamGames();
+      writeSteamGamesInWorkbook();
+    }
   }
 
   /**
@@ -124,8 +134,10 @@ public class SteamGames {
    *
    * @param steamId given steamId from user
    * @param steamWebApi given steamWebApi from user
+   *
+   * @return either the success connection code or 0
    */
-  public void requestSteamGames(final String steamId,
+  public int requestSteamGames(final String steamId,
                                 final String steamWebApi) {
     try {
       URL url = new URL("http://api.steampowered.com/"
@@ -146,36 +158,43 @@ public class SteamGames {
         response.append(inputLine);
       }
 
+      int code = con.getResponseCode();
+
+      System.out.println("ResponseCode: " + code);
+
       in.close();
       con.disconnect();
 
       setJsonFile(new JSONObject(response.toString()));
+      return code;
     } catch (IOException e) {
       e.printStackTrace();
     }
+    return 0;
   }
 
   /**
-   * Method to create out of the JSONObject that contains every
-   * information, a 2D array that is ordered in a chronological
-   * way with every game and its corresponding play time.
+   * Method to create a 2D array out of the JSONObject
+   * that contains every information. The 2D array is
+   * ordered in a chronological way with every game
+   * and its corresponding play time.
    */
   public void createSortedArrayOfSteamGames() {
     setAllGames(getJsonFile().getJSONObject("response")
-            .getJSONArray("games"));
+              .getJSONArray("games"));
 
     String[][] gamesAndTime = new String[allGames.length()][2];
 
     for (int i = 0; i < allGames.length(); i++) {
       String gameName = allGames.getJSONObject(i).getString("name");
       String gameTime = String.valueOf((allGames.getJSONObject(i)
-              .getInt("playtime_forever") / getDivisor()));
+             .getInt("playtime_forever") / getDivisor()));
       gamesAndTime[i][0] = gameName;
       gamesAndTime[i][1] = gameTime;
     }
 
     Arrays.sort(gamesAndTime, Collections.reverseOrder(
-            Comparator.comparingInt(o -> Integer.parseInt(o[1]))));
+          Comparator.comparingInt(o -> Integer.parseInt(o[1]))));
 
     setAllGamesAndTimes(gamesAndTime);
   }
@@ -184,16 +203,8 @@ public class SteamGames {
    * Method that is used to write the processed data into the already
    * existing workbook or is used to create a new workbook and then
    * write every processed data into this newly created workbook.
-   *
-   * @throws IOException workbook is using FileOutputStream()
    */
-  public void writeSteamGamesInWorkbook() throws IOException {
-    //todo: if there is no workbook existing, create one
-    // and pass that with the data
-    if (ExcelWorkbook.workbook == null) {
-      ExcelWorkbook workbook = new ExcelWorkbook();
-      workbook.creationOfSteamSheet(getAllGames(), getAllGamesAndTimes());
-      //todo: if there is a workbook just pass the data
-    }
+  public void writeSteamGamesInWorkbook() {
+    ExcelWorkbook.creationOfSteamSheet(getAllGames(), getAllGamesAndTimes());
   }
 }

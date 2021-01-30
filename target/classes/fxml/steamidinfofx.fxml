@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="steamidinfopane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.funky.controller.SteamIdInfoFxController"
+      stylesheets="@../cssstyling/mainstyle.css">
+   <Label fx:id="steamidinfolabel" textAlignment="CENTER"/>
+   <Hyperlink fx:id="idfinderlink" id="id_finder" onAction="#openBrowser"/>
+</VBox>

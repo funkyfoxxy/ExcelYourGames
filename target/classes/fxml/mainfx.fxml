@@ -5,31 +5,30 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="178.0" prefWidth="600.0" stylesheets="@../cssstyling/mystyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.funky.backend.FxController">
-   <children>
-      <HBox prefHeight="40.0" prefWidth="600.0">
-         <children>
-            <Label alignment="CENTER" prefHeight="40.0" prefWidth="600.0" text="Get all your games from Steam as an Excel-File" textAlignment="CENTER">
-               <font>
-                  <Font name="Arial Bold" size="17.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-      <HBox alignment="BOTTOM_RIGHT" layoutY="152.0" prefHeight="25.0" prefWidth="600.0">
-         <children>
-            <Label alignment="CENTER_RIGHT" text="funky - Version 1.0">
-               <HBox.margin>
-                  <Insets right="4.0" />
-               </HBox.margin>
-            </Label>
-         </children>
-      </HBox>
-      <Button id="missingdata" fx:id="create_xlsx" layoutX="424.0" layoutY="130.0" mnemonicParsing="false" onAction="#createWorkbook" text="Create .xlsx" />
-      <TextField id="steamid_field" fx:id="fieldSteamId" layoutX="100.0" layoutY="40.0" prefHeight="25.0" prefWidth="400.0" promptText="personal SteamID" />
-      <TextField id="webapi_field" fx:id="fieldWebApi" layoutX="100.0" layoutY="70.0" prefHeight="25.0" prefWidth="400.0" promptText="personal SteamWebAPIKey" />
-      <Button id="steamidinfo" fx:id="information_steamid" layoutX="505.0" layoutY="40.0" mnemonicParsing="false" onAction="#openInfo" text="i" />
-      <Button id="steamwebapi" fx:id="information_webid" layoutX="505.0" layoutY="70.0" mnemonicParsing="false" onAction="#openInfo" text="i" />
-      <TextField fx:id="field_file_path" layoutX="100.0" layoutY="100.0" prefHeight="25.0" prefWidth="400.0" promptText="file path" />
-   </children>
+<Pane fx:id="mainpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="193.0" prefWidth="600.0" stylesheets="@../cssstyling/mainstyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.funky.controller.MainFxController">
+   <HBox prefHeight="40.0" prefWidth="600.0">
+      <Label fx:id="headerLabel" alignment="CENTER" prefHeight="40.0" prefWidth="600.0" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Bold" size="17.0" />
+         </font>
+      </Label>
+   </HBox>
+   <Button id="createdatafx" fx:id="createXlsx" layoutX="400.0" layoutY="130.0" mnemonicParsing="false" onAction="#createWorkbook" prefHeight="25.0" prefWidth="100.0" />
+   <TextField id="steamid_field" fx:id="fieldSteamId" layoutX="100.0" layoutY="40.0" prefHeight="25.0" prefWidth="400.0" />
+   <TextField id="webapi_field" fx:id="fieldWebApi" layoutX="100.0" layoutY="70.0" prefHeight="25.0" prefWidth="400.0" />
+   <Button id="steamidinfofx" fx:id="informationSteamId" layoutX="505.0" layoutY="40.0" mnemonicParsing="false" onAction="#openInfo" />
+   <Button id="steamwebapifx" fx:id="informationWebId" layoutX="505.0" layoutY="70.0" mnemonicParsing="false" onAction="#openInfo" />
+   <TextField fx:id="fieldFilePath" layoutX="100.0" layoutY="100.0" prefHeight="25.0" prefWidth="400.0" />
+   <HBox layoutY="164.0" prefHeight="30.0" prefWidth="600.0">
+      <Region prefHeight="30.0" prefWidth="5.0" />
+      <ChoiceBox fx:id="checkDark" prefHeight="25.0" prefWidth="100.0">
+      </ChoiceBox>
+      <Region prefHeight="30.0" prefWidth="269.0" HBox.hgrow="ALWAYS" />
+      <Label fx:id="creator" alignment="BOTTOM_RIGHT" text="funky - Version 1.0" textAlignment="CENTER">
+         <HBox.margin>
+            <Insets right="5.0" top="8.0" />
+         </HBox.margin>
+      </Label>
+   </HBox>
+   <Button fx:id="buttonsavepath" layoutX="505.0" layoutY="100.0" mnemonicParsing="false" onAction="#openDirectory" />
 </Pane>
