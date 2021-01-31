@@ -1,0 +1,8 @@
+de\funky\backend\ExcelInGamesMain.class
+de\funky\gameclients\SteamGames.class
+de\funky\controller\SteamWebApiFxController.class
+de\funky\backend\ExcelWorkbook.class
+de\funky\controller\MainFxController$Colors.class
+de\funky\controller\CreateDataFxController.class
+de\funky\controller\SteamIdInfoFxController.class
+de\funky\controller\MainFxController.class
