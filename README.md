@@ -10,4 +10,4 @@ Still a bit to do.
 - creating an .exe file so the program does not have to be run inside an IDE
 - and so on
 
-![This is it](https://imgur.com/13KYYqs)
+![This is it](https://i.imgur.com/13KYYqs.png)
