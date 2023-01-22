@@ -466,7 +466,7 @@ public class MainFxController implements Initializable {
   }
 
   /**
-   * Setter for the filePath that he user selected.
+   * Setter for the filePath that the user selected.
    *
    * @param newFilePath new filePath as String
    */

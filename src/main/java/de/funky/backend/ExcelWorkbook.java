@@ -93,7 +93,7 @@ public class ExcelWorkbook {
   /**
    * Creation of the workbook. Also the most important
    * settings for the workbook will be set as following:
-   * the headerStyle, the columenStyle and also the
+   * the headerStyle, the columnStyle and also the
    * headerFont with fontsizes.
    */
   public static void creationOfWorkbook() {
@@ -113,7 +113,7 @@ public class ExcelWorkbook {
   /**
    * Creating the Steam sheet. Cells and rows will be added
    * based on the numbers from the parameters. Also the header
-   * and the columensizes will be set.
+   * and the columnSizes will be set.
    *
    * @param allGames every game with every information
    * @param gamesAndTime every game sorted by gametime

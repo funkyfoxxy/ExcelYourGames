@@ -63,7 +63,7 @@ public class SteamIdInfoFxController implements Initializable {
   }
 
   /**
-   * Opens the default Browser of the users system.
+   * Opens the default Browser of the user's system.
    */
   public void openBrowser() {
     try {

@@ -63,12 +63,12 @@ public class SteamWebApiFxController implements Initializable {
   }
 
   /**
-   * Opens the default Browser of the users system.
+   * Opens the default Browser of the user's system.
    */
   public void openBrowser() {
     try {
       Desktop.getDesktop()
-            .browse(new URI("https://steamidfinder.com/"));
+            .browse(new URI("https://steamcommunity.com/dev"));
     } catch (IOException | URISyntaxException e1) {
       e1.printStackTrace();
     }
