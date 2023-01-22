@@ -9,3 +9,5 @@ Still a bit to do.
 - add the option to see more information about the listed games in the .xlsx file
 - creating an .exe file so the program does not have to be run inside an IDE
 - and so on
+
+![This is it](https://imgur.com/13KYYqs)
